@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "335185507635",
+    "firebase_url": "https://helpme-apps.firebaseio.com",
+    "project_id": "helpme-apps",
+    "storage_bucket": "helpme-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:335185507635:android:32b3a18df4853324f97a46",
+        "android_client_info": {
+          "package_name": "com.banana.helpme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "335185507635-7ipuht3kfohvah70qm2o1er8jtnltr4a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.banana.helpme",
+            "certificate_hash": "b5be566987ae0d35efcbbf22b0861789402d1685"
+          }
+        },
+        {
+          "client_id": "335185507635-h5qe934kpdjduk9ron7g6ogovjdef156.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh9nt3Q8Nin5a5FxvskdgvWJZ6TtSv1b0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "335185507635-h5qe934kpdjduk9ron7g6ogovjdef156.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
