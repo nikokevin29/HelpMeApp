@@ -64,13 +64,15 @@ public class Login extends AppCompatActivity {
     }
 
 
-    private void goToMain() {
+    private void goToMain()
+    {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
-    private void login(final String email, final String password) {
+    private void login(final String email, final String password)
+    {
         if (TextUtils.isEmpty(email)) {
             Snackbar.make(findViewById(android.R.id.content), "Masukan email yang valid", Snackbar.LENGTH_LONG)
                     .show();
@@ -80,24 +82,24 @@ public class Login extends AppCompatActivity {
         } else {
             //  do login
             mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                //  login sucess
-                                //  go to mainactivity
-                                goToMain();
-                            } else {
-                                //  login failed
-                                showMessageBox("Login failed. Your username and password is not matched");
-                            }
-                        }
-                    });
-
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        //  login sucess
+                        //  go to mainactivity
+                        goToMain();
+                    } else {
+                        //  login failed
+                        showMessageBox("Login failed. Your username and password is not matched");
+                    }
+                }
+            });
         }
     }
 
-    private void showMessageBox(String message) {
+    private void showMessageBox(String message)
+    {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("Login");
         alertDialogBuilder.setMessage(message);
@@ -110,7 +112,6 @@ public class Login extends AppCompatActivity {
         });
         alertDialogBuilder.show();
     }
-
     public boolean isLoggedIn() {
         if (mAuth.getCurrentUser() != null) {
             //  user logged in
