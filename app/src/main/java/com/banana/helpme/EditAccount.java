@@ -8,31 +8,31 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-public class AddTips extends AppCompatActivity {
+public class EditAccount extends AppCompatActivity {
 
+    private Button Confirm;
     private ImageButton NavBack;
-    private Button Share;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_tips);
+        setContentView(R.layout.activity_edit_account);
 
-        NavBack = (ImageButton) findViewById(R.id.ic_nav_back_tips);
-        Share = (Button) findViewById(R.id.btnShare);
+        NavBack = (ImageButton) findViewById(R.id.ic_nav_back_acc);
+        Confirm = (Button) findViewById(R.id.btnConfirm);
 
         NavBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ad = new Intent(AddTips.this, AddFragment.class);
-                startActivity(ad);
+                Intent nav = new Intent(EditAccount.this, AccountFragment.class);
+                startActivity(nav);
             }
         });
 
-        Share.setOnClickListener(new View.OnClickListener() {
+        Confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent share = new Intent(AddTips.this, MainActivity.class);
-                startActivity(share);
+                Intent con = new Intent(EditAccount.this, AccountFragment.class);
+                startActivity(con);
             }
         });
     }

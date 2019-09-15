@@ -2,7 +2,41 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:background="@color/cardview_dark_background">
+
+        <TextView
+            android:id="@+id/Information"
+            android:layout_width="196dp"
+            android:layout_height="34dp"
+            android:text="Information"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="23dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.288"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.473" />
+
+        <ImageButton
+            android:id="@+id/ic_nav_back_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/cardview_dark_background"
+            android:tint="@android:color/background_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="?attr/actionModeCloseDrawable" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tv_info"
@@ -10,7 +44,7 @@
         android:layout_height="wrap_content"
         android:text="Kelompok 1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="80dp"
         android:textSize="25dp"
         android:fontFamily="monospace"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -31,7 +65,7 @@
         android:layout_marginTop="20dp"
         android:text="Pande Nyoman Pradnya"/>
     <TextView
-        android:id="@+id/NPMX"
+        android:id="@+id/NPM9439"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -39,11 +73,11 @@
         android:layout_marginTop="20dp"
         android:text="Timotius Nico"/>
     <TextView
-        android:id="@+id/NPMX2"
+        android:id="@+id/NPM9442"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/NPMX"
+        android:layout_below="@id/NPM9439"
         android:layout_marginTop="20dp"
         android:text="Kevin Septianto"/>
 
