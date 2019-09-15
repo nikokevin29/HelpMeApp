@@ -8,8 +8,43 @@
         android:id="@+id/tv_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="info"
+        android:text="Kelompok 1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textSize="25dp"
+        android:fontFamily="monospace"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+    <TextView
+        android:id="@+id/NPM9142"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv_info"
+        android:layout_marginTop="20dp"
+        android:text="Nicholas Kevin"/>
+    <TextView
+        android:id="@+id/NPM9153"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/NPM9142"
+        android:layout_marginTop="20dp"
+        android:text="Pande Nyoman Pradnya"/>
+    <TextView
+        android:id="@+id/NPMX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/NPM9153"
+        android:layout_marginTop="20dp"
+        android:text="Timotius Nico"/>
+    <TextView
+        android:id="@+id/NPMX2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/NPMX"
+        android:layout_marginTop="20dp"
+        android:text="Kevin Septianto"/>
 
 </RelativeLayout>
