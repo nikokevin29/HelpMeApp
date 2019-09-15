@@ -33,5 +33,5 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth:18.1.0' // buat autentifikasi login
 
-    
+
 }
