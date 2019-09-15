@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AccountFragment"></activity>
+        <activity android:name=".AddTips"></activity>
+        <activity android:name=".AddReport" />
+        <activity android:name=".AccountFragment" />
         <activity android:name=".InfoFragment" />
         <activity android:name=".AddFragment" />
         <activity android:name=".TipsFragment" />

@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">HelpMe</string>
-
+    <string name="addreport">Choose Action</string>
 </resources>
