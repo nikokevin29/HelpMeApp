@@ -8,12 +8,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="300dp">
+        <TextView
+            android:id="@+id/tvLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/imgLogout"
+            android:layout_marginTop="10dp"
+            android:text="Logout"/>
+        <ImageButton
+            android:id="@+id/imgLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_logout" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
-
             <ImageView
                 android:id="@+id/imgEdit"
                 android:layout_width="wrap_content"
