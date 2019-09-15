@@ -55,26 +55,30 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 System.out.println("masuk klik");
-                mAuth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
-                        .addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d(TAG, "createUserWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    updateUI(user);
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(Register.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                    updateUI(null);
-                                }
+                if (cekDataUser()) {
+                    mAuth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
+                            .addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d(TAG, "createUserWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        sendEmail(user);
+                                        System.out.println("usernya " + user.getEmail());
+                                        updateUI(user);
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                        Toast.makeText(Register.this, "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
+                                        updateUI(null);
+                                    }
 
-                                // ...
-                            }
-                        });
+                                    // ...
+                                }
+                            });
+                }
             }
         });
 
@@ -85,16 +89,39 @@ public class Register extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        //updateUI(currentUser);
     }
     public void updateUI(FirebaseUser currentUser){
         if(currentUser != null)
         {
-
+            Intent log = new Intent(Register.this, Login.class);
+            startActivity(log);
         }
     }
 
-    /*private void cekDataUser(){
+    public void sendEmail(final FirebaseUser user)
+    {
+        final FirebaseUser firebase_user = user;
+        firebase_user.sendEmailVerification().addOnCompleteListener(this, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                //findViewById(R.id.verify_email_button).setEnabled(true);
+
+                if (task.isSuccessful()) {
+                    Toast.makeText(Register.this,
+                            "Verification email sent to " + firebase_user.getEmail(),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.e(TAG, "sendEmailVerification", task.getException());
+                    Toast.makeText(Register.this,
+                            "Failed to send verification email.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private boolean cekDataUser(){
         //Mendapatkan dat yang diinputkan User
         email = etEmail.getText().toString();
         password = etPassword.getText().toString();
@@ -102,15 +129,18 @@ public class Register extends AppCompatActivity {
         //Mengecek apakah email dan sandi kosong atau tidak
         if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
             Toast.makeText(this, "Email atau Sandi Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+            return false;
         }else{
             //Mengecek panjang karakter password baru yang akan didaftarkan
             if(password.length() < 6){
                 Toast.makeText(this, "Sandi Terlalu Pendek, Minimal 6 Karakter", Toast.LENGTH_SHORT).show();
+                return false;
             }else {
-                createUserAccount();
+                return true;
+                //createUserAccount();
             }
         }
-    }*/
+    }
 
     /*private void createUserAccount(){
         mAuth.createUserWithEmailAndPassword(email, password)

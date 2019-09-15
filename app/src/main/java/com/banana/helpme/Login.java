@@ -8,16 +8,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
     private static final String TAG = "Login";
@@ -26,6 +29,7 @@ public class Login extends AppCompatActivity {
     private Button btnLogin;
 
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private boolean loggedIn;
 
     @Override
@@ -46,21 +50,36 @@ public class Login extends AppCompatActivity {
                 startActivity(reg);
             }
         });
-        loggedIn = isLoggedIn();
-        if (loggedIn) {
-            goToMain(); //go to mainactivity
+
+        user = mAuth.getCurrentUser();
+
+        if (user!=null)
+        {
+            if(user.isEmailVerified())
+            {
+                loggedIn = isLoggedIn();
+                if (loggedIn) {
+                    goToMain(); //go to mainactivity
+                }
+            }/*else{
+                sendEmail(user);
+            }*/
         }
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //else{
-                    String email = etEmail.getText().toString().trim();
-                    String password = etPassword.getText().toString().trim();
+                String email = etEmail.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
+
                     login(email, password);
+
                 //}
 
             }
         });
+
     }
 
 
@@ -88,7 +107,15 @@ public class Login extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         //  login sucess
                         //  go to mainactivity
-                        goToMain();
+                        user = mAuth.getCurrentUser();
+                        //System.out.println(user.getEmail()+" "+user.isEmailVerified());
+                        if(user.isEmailVerified())
+                        {
+                            goToMain();
+                        }else{
+                            sendEmail(user);
+
+                        }
                     } else {
                         //  login failed
                         showMessageBox("Login failed. Your username and password is not matched");
@@ -119,5 +146,29 @@ public class Login extends AppCompatActivity {
         } else {
             return false;
         }
+    }
+
+    public void sendEmail(final FirebaseUser user)
+    {
+        final FirebaseUser firebase_user = user;
+        firebase_user.sendEmailVerification().addOnCompleteListener(this, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                //findViewById(R.id.verify_email_button).setEnabled(true);
+
+                if (task.isSuccessful()) {
+                    showMessageBox("Akun anda belum terverifikasi. Email verifikasi telah terkirim ke "+firebase_user.getEmail()+
+                            ". Login ulang setelah melakukan verifikasi akun.");
+                    //Toast.makeText(Login.this,
+                    //        "Verification email sent to " + firebase_user.getEmail(),
+                    //        Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.e(TAG, "sendEmailVerification", task.getException());
+                    Toast.makeText(Login.this,
+                            "Failed to send verification email.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
