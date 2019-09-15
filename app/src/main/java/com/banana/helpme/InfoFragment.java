@@ -23,6 +23,13 @@ public class InfoFragment extends Fragment {
 
         Navback = (ImageButton) view.findViewById(R.id.ic_nav_back_info);
 
+        /*Navback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent nav = new Intent(InfoFragment.this, AccountFragment.class);
+                startActivity(nav);
+            }
+        });*/
         return view;
     }
 }
