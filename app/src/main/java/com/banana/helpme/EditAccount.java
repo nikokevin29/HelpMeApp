@@ -17,7 +17,7 @@ public class EditAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
 
-        NavBack = (ImageButton) findViewById(R.id.ic_nav_back_acc);
+        NavBack = (ImageButton) findViewById(R.id.ic_back);
         Confirm = (Button) findViewById(R.id.btnConfirm);
 
         NavBack.setOnClickListener(new View.OnClickListener() {
