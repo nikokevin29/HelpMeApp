@@ -39,4 +39,11 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:28.0.0' //recycleview
     //noinspection GradleCompatible
     implementation 'com.android.support:cardview-v7:28.0.0' //cardview
+
+    //for rest-api
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
 }

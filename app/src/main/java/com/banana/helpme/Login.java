@@ -104,22 +104,23 @@ public class Login extends AppCompatActivity {
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        //  login sucess
-                        //  go to mainactivity
-                        user = mAuth.getCurrentUser();
-                        //System.out.println(user.getEmail()+" "+user.isEmailVerified());
-                        if(user.isEmailVerified())
-                        {
-                            goToMain();
-                        }else{
-                            sendEmail(user);
+                if (task.isSuccessful()) {
+                    //  login sucess
+                    //  go to mainactivity
+                    user = mAuth.getCurrentUser();
+                    //System.out.println(user.getEmail()+" "+user.isEmailVerified());
+                    if(user.isEmailVerified())
+                    {
+                        goToMain();
+                        //proses data profil disini
+                    }else{
+                        sendEmail(user);
 
-                        }
-                    } else {
-                        //  login failed
-                        showMessageBox("Login failed. Your username and password is not matched");
                     }
+                } else {
+                    //  login failed
+                    showMessageBox("Login failed. Your username and password is not matched");
+                }
                 }
             });
         }

@@ -50,8 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvFullName"
-            android:layout_centerHorizontal="true"
-            android:text="nikokevin29" />
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/tvFullName"
@@ -59,11 +58,10 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginTop="10dp"
-            android:text="Nicholas Kevin"
             android:textColor="#2F4033"
             android:textColorHighlight="#00B17878"
             android:textSize="21sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -93,7 +91,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
-                        android:text="nikokevin29@gmail.com"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -111,12 +108,10 @@
 
                     <TextView
                         android:id="@+id/tvPhone"
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
-                        android:text="+62822 7975 222"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -138,7 +133,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
-                        android:text="01-01-2000"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -160,7 +154,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
-                        android:text="Male"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
