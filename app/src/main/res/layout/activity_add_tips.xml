@@ -71,7 +71,7 @@
             android:layout_marginTop="25dp"
             android:layout_marginLeft="56dp"
             android:layout_below="@+id/description"
-            android:text="Image(Optional)"
+            android:text="Image (Optional)"
             android:textSize="18dp"/>
 
         <ImageButton

@@ -21,7 +21,7 @@ public class InfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_info_fragment, container, false);
 
-        Navback = (ImageButton) view.findViewById(R.id.ic_nav_back_info);
+        Navback = (ImageButton) view.findViewById(R.id.ic_nav_back_tips);
 
         /*Navback.setOnClickListener(new View.OnClickListener() {
             @Override
