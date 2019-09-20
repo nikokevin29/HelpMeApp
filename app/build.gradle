@@ -46,4 +46,7 @@ dependencies {
     //gson
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+
+    implementation 'com.google.android.gms:play-services-location:11.8.0' //location
+    implementation 'pub.devrel:easypermissions:2.0.1' //grant permission
 }

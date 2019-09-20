@@ -86,10 +86,11 @@
             android:layout_marginTop="20dp">
 
             <TextView
+                android:id="@+id/tvLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Location"
-                android:layout_weight="10"/>
+                android:layout_weight="10"
+                android:text="Location" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
