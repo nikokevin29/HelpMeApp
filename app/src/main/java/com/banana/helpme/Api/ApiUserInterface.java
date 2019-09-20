@@ -22,8 +22,11 @@ public interface ApiUserInterface {
                           @Field("birth")String tanggal_lahir,
                           @Field("gender")String gender);
 
+    @GET("Profile/getByEmail/{email}")
+    Call<UserDAO> getUser(@Path("email") String email);
+
     @GET("Profile/getProfile")
-    Call<List<UserDAO>> getUser();
+    Call<List<UserDAO>> getAllUser();
 
     @PUT("Profile/updateProfile/{id}")
     @FormUrlEncoded

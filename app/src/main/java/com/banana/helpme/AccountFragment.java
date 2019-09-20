@@ -52,8 +52,8 @@ public class AccountFragment extends Fragment {
         user = mAuth.getCurrentUser();
 
 
-        tvNama.setText(userModel.getNama());
-        tvUsername.setText(userModel.getUsername());
+        //tvNama.setText(userModel.getNama());
+        //tvUsername.setText(userModel.getUsername());
         showInfo();
         logout(); //fungsi button logout
         return view;
@@ -61,7 +61,26 @@ public class AccountFragment extends Fragment {
     }
     public void showInfo()
     {
+        ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
+        Call<UserDAO> userDAOCall = apiService.getUser(user.getEmail());
 
+        userDAOCall.enqueue(new Callback<UserDAO>() {
+            @Override
+            public void onResponse(Call<UserDAO> call, Response<UserDAO> response) {
+                userModel = response.body();
+                tvNama.setText(userModel.getNama());
+                tvUsername.setText(userModel.getUsername());
+                tvEmail.setText(userModel.getEmail());
+                tvPhone.setText(userModel.getTelepon());
+                tvBirthday.setText(userModel.getTanggal_lahir());
+                tvGender.setText(userModel.getGender());
+            }
+
+            @Override
+            public void onFailure(Call<UserDAO> call, Throwable t) {
+
+            }
+        });
     }
 
     public void logout()

@@ -42,5 +42,7 @@ public class AddReport extends AppCompatActivity {
                 startActivity(ad);
             }
         });
+
+        
     }
 }
