@@ -78,7 +78,7 @@ public class AccountFragment extends Fragment {
 
             @Override
             public void onFailure(Call<UserDAO> call, Throwable t) {
-
+                t.getMessage();
             }
         });
     }

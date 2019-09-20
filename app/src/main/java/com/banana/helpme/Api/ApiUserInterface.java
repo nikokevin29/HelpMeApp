@@ -47,12 +47,13 @@ public interface ApiUserInterface {
     @POST("Report/createReport")
     Call<String> addReport(@Field("kategori")String kategori,
                          @Field("img")String img,
-                         @Field("longitude")Float longitude,
-                         @Field("latitude")Float latitude,
-                         @Field("description")String description);
+                         @Field("address")String alamat,
+                         @Field("description")String description,
+                           @Field("username")String username,
+                           @Field("datetime")String datetime);
 
     @GET("Report/getReport")
-    Call<List<ReportDAO>> getReport();
+    Call<List<ReportDAO>> getAllReport();
 
     @PUT("Report/updateReport/{id}")
     @FormUrlEncoded

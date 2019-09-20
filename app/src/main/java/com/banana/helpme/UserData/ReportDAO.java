@@ -1,26 +1,66 @@
 package com.banana.helpme.UserData;
 
+import java.util.Date;
+
 public class ReportDAO {
-    String kategori, img, desctiption;
-    Float longitude, latitude;
-    public String getKategori(){ return kategori;}
-    public void setKategori(String kategori){ this.kategori = kategori;}
-    public String getImg(){ return img;}
-    public void setImg(String img){ this.img = img;}
-    public Float getLongitude(){ return longitude;}
-    public void setLongitude(Float longitude){ this.longitude = longitude;}
-    public Float getLatitude(){ return latitude;}
-    public void setLatitude(Float latitude){ this.latitude = latitude;}
-    public String getDesctiption(){ return desctiption;}
-    public void setDesctiption(String img){ this.desctiption = desctiption;}
+    String username, datetime, kategori, img, description, alamat;
 
     public ReportDAO() {}
-    public ReportDAO(String kategori,String img, Float longitude,Float latitude, String desctiption)
-    {
-        this.kategori = kategori ;
+
+    public ReportDAO(String username, String datetime, String kategori, String img, String description, String alamat) {
+        this.username = username;
+        this.datetime = datetime;
+        this.kategori = kategori;
         this.img = img;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.desctiption = desctiption;
+        this.description = description;
+        this.alamat = alamat;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
+    public String getKategori() {
+        return kategori;
+    }
+
+    public void setKategori(String kategori) {
+        this.kategori = kategori;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
 }
