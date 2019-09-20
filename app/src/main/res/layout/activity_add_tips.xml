@@ -34,57 +34,67 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.473"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/layoutHeader">
-        <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutHeader">
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="35dp"
-            android:orientation="vertical">
-            <EditText
-                android:id="@+id/txtTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:hint="Title"/>
-            <EditText
-                android:id="@+id/txtDesc"
-                android:layout_marginTop="25dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:lines="8"
-                android:maxLines="10"
-                android:minLines="5"
-                android:scrollbars="vertical"
-                android:hint="Description" />
+            android:layout_below="@+id/layoutHeader">
             <LinearLayout
-                android:id="@+id/btnCamera"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="25dp">
-                <TextView
+                android:layout_height="match_parent"
+                android:layout_margin="35dp"
+                android:orientation="vertical">
+                <EditText
+                    android:id="@+id/txtTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:hint="Title"/>
+                <EditText
+                    android:id="@+id/txtDesc"
+                    android:layout_marginTop="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:lines="8"
+                    android:maxLines="10"
+                    android:minLines="5"
+                    android:scrollbars="vertical"
+                    android:hint="Description" />
+                <LinearLayout
+                    android:id="@+id/btnCamera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="25dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Image (Optional)"
+                        android:layout_weight="12"/>
+
+                    <ImageView
+                        android:id="@+id/cameraLogo"
+                        android:adjustViewBounds="true"
+                        android:maxWidth="150dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_camera" />
+                </LinearLayout>
+                <Button
+                    android:id="@+id/btnShare"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Image (Optional)"
-                    android:layout_weight="12"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_camera"
-                    android:layout_weight="1"/>
+                    android:text="SHARE"
+                    android:layout_marginTop="150dp"
+                    android:layout_gravity="center"/>
             </LinearLayout>
-            <Button
-                android:id="@+id/btnShare"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SHARE"
-                android:layout_marginTop="150dp"
-                android:layout_gravity="center"/>
-        </LinearLayout>
-    </RelativeLayout>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
 </RelativeLayout>

@@ -81,7 +81,6 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
             deskripsi = itemView.findViewById(R.id.tvDeskripsi);
             parent = itemView.findViewById(R.id.Parent);
         }
-
         public void onClick(View view){
             Toast.makeText(context, "You touch me?", Toast.LENGTH_SHORT).show();
         }

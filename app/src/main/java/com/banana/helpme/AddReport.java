@@ -30,16 +30,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import pub.devrel.easypermissions.EasyPermissions;
 
 public class AddReport extends AppCompatActivity {
     private ImageButton NavBack;
@@ -56,6 +56,9 @@ public class AddReport extends AppCompatActivity {
     private String photoData;
     final int cameraCode = 99;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +74,8 @@ public class AddReport extends AppCompatActivity {
         tvLocation = (TextView) findViewById(R.id.tvLocation);
         tvPicture = (TextView) findViewById(R.id.pic);
         camera = (ImageView) findViewById(R.id.camera);
+
+        user = mAuth.getCurrentUser();
 
         NavBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,5 +179,11 @@ public class AddReport extends AppCompatActivity {
             Log.e("errror get address", e.getMessage());
         }
         return alamat;
+    }
+
+    private String getSysDate(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }
