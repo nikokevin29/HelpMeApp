@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".EditTips">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutHeader"
@@ -79,10 +80,10 @@
                     android:layout_weight="1"/>
             </LinearLayout>
             <Button
-                android:id="@+id/btnShare"
+                android:id="@+id/btnConfirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SHARE"
+                android:text="CONFIRM"
                 android:layout_marginTop="150dp"
                 android:layout_gravity="center"/>
         </LinearLayout>

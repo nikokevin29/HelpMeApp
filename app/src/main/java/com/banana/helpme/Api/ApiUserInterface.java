@@ -60,11 +60,12 @@ public interface ApiUserInterface {
     Call<String> editReport(@Path("id") String id,
                             @Field("kategori")String kategori,
                             @Field("img")String img,
-                            @Field("longitude")Float longitude,
-                            @Field("latitude")Float latitude,
-                            @Field("description")String description);
+                            @Field("address")String alamat,
+                            @Field("description")String description,
+                            @Field("username")String username,
+                            @Field("datetime")String datetime);
 
-    @DELETE("Report/deleteProfile/{id}")
+    @DELETE("Report/deleteReport/{id}")
     Call<String> deleteReport(@Path("id") String id);
 
 
@@ -74,17 +75,21 @@ public interface ApiUserInterface {
     @POST("Tips/createTips")
     Call<String> addTips(@Field("title")String title,
                            @Field("description")String description,
-                           @Field("img")String img);
+                           @Field("img")String img,
+                         @Field("username")String username,
+                         @Field("datetime")String datetime);
 
     @GET("Tips/getTips")
-    Call<List<TipsDAO>> getTips();
+    Call<List<TipsDAO>> getAllTips();
 
     @PUT("Tips/updateTips/{id}")
     @FormUrlEncoded
     Call<String> editTips(@Path("id") String id,
                           @Field("title")String title,
                           @Field("description")String description,
-                          @Field("img")String img);
+                          @Field("img")String img,
+                          @Field("username")String username,
+                          @Field("datetime")String datetime);
 
     @DELETE("Tips/deleteTips/{id}")
     Call<String> deleteTips(@Path("id") String id);

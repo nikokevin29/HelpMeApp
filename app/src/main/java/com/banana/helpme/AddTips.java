@@ -15,7 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.banana.helpme.Api.ApiClient;
+import com.banana.helpme.Api.ApiUserInterface;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -24,6 +27,10 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddTips extends AppCompatActivity {
 
@@ -36,6 +43,7 @@ public class AddTips extends AppCompatActivity {
     final int galleryCode = 100;
     Uri imageUri;
     Bitmap bitmapImg;
+    String stringImg;
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -64,19 +72,33 @@ public class AddTips extends AppCompatActivity {
             }
         });
 
-        btnShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent share = new Intent(AddTips.this, MainActivity.class);
-                startActivity(share);
-            }
-        });
-
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intentGallery, galleryCode);
+            }
+        });
+
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
+                Call<String> tipsDAOcall = apiService.addTips(title.getText().toString(),
+                        description.getText().toString(), bitmapImg.toString(), "pradnya123", getSysDate());
+                tipsDAOcall.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        Toast.makeText(AddTips.this, "success", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Toast.makeText(AddTips.this, "failed to share", Toast.LENGTH_SHORT).show();
+                        Intent share = new Intent(AddTips.this, MainActivity.class);
+                        startActivity(share);
+                    }
+                });
             }
         });
     }
@@ -86,9 +108,10 @@ public class AddTips extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == galleryCode && resultCode == RESULT_OK){
             imageUri = data.getData();
-            camera.setImageURI(imageUri);
             try {
                 bitmapImg = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                camera.setImageBitmap(bitmapImg);
+                stringImg = BitMapToString(bitmapImg);
             } catch (IOException e) {
                 e.printStackTrace();
             }

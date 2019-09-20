@@ -104,7 +104,7 @@ public class AddReport extends AppCompatActivity {
         }
         final Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
 
-        onLocationChanged(location);
+        //onLocationChanged(location);
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,14 +158,19 @@ public class AddReport extends AppCompatActivity {
 
     public void onLocationChanged(final Location location)
     {
-        double longitude = location.getLongitude();
-        double latitude =  location.getLatitude();
+        if(location!=null){
+            double longitude = location.getLongitude();
+            double latitude =  location.getLatitude();
 
-        Toast.makeText(this, "Lat : " + latitude + " Long : " + longitude, Toast.LENGTH_SHORT).show();
-        //getAddress(latitude,longitude);
-        String alamat = getAddress(AddReport.this,latitude,longitude);
-        tvLocation.setText(alamat);
-        Toast.makeText(AddReport.this,"alamat"+alamat,Toast.LENGTH_LONG).show(); //tampilin toast
+            Toast.makeText(this, "Lat : " + latitude + " Long : " + longitude, Toast.LENGTH_SHORT).show();
+            //getAddress(latitude,longitude);
+            String alamat = getAddress(AddReport.this,latitude,longitude);
+            tvLocation.setText(alamat);
+            //Toast.makeText(AddReport.this,"alamat"+alamat,Toast.LENGTH_LONG).show(); //tampilin toast
+        }else{
+            System.out.println("pIaSang");
+        }
+
     }
     private String getAddress(Context c, double latitude, double longitude) {
         String alamat =null;
