@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,8 @@ import retrofit2.*;
 public class AccountFragment extends Fragment {
     private UserDAO userModel = new UserDAO();
     private TextView tvNama, tvUsername, tvEmail, tvPhone, tvBirthday, tvGender;
-    private ImageButton mlogout;
+    //private ImageButton mlogout;
+    private RelativeLayout btnLogout, btnEdit;
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -43,7 +45,8 @@ public class AccountFragment extends Fragment {
         tvBirthday = (TextView) view.findViewById(R.id.tvDate);
         tvGender = (TextView) view.findViewById(R.id.tvGender);
 
-        mlogout = (ImageButton) view.findViewById(R.id.imgLogout);
+        btnLogout = (RelativeLayout) view.findViewById(R.id.btnLogout);
+        btnEdit = (RelativeLayout) view.findViewById(R.id.btnEditProfile);
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -63,7 +66,7 @@ public class AccountFragment extends Fragment {
 
     public void logout()
     {
-        mlogout.setOnClickListener(new View.OnClickListener() {
+        btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();

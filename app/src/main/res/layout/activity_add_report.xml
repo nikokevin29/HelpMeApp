@@ -54,11 +54,12 @@
             android:layout_height="wrap_content"
             android:text="Category"/>
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/spinnerCategory"
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:entries="@array/repCategory" />
         <LinearLayout
+            android:id="@+id/btnPicture"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -78,6 +79,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btnLocation"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -96,6 +98,7 @@
         </LinearLayout>
 
         <EditText
+            android:id="@+id/txtDesc"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,6 +110,7 @@
             android:hint="Description"/>
 
         <Button
+            android:id="@+id/btnPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="POST"

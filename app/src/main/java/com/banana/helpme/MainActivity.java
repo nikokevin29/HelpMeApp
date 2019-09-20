@@ -24,6 +24,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // kita set default nya Home Fragment
         loadFragment(new HomeFragment());
+
+        if (getIntent().getStringExtra("from")!=null){
+            if(getIntent().getStringExtra("from").equalsIgnoreCase("AddPost"))
+            {
+                loadFragment(new AddFragment());
+            }
+        }
+
         // inisialisasi BottomNavigaionView
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bn_main);
         // beri listener pada saat item/menu bottomnavigation terpilih

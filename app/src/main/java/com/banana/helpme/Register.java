@@ -76,7 +76,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 System.out.println("masuk klik");
-                Register();
+
                 if (cekDataUser()) {
                     mAuth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
                     .addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
@@ -86,7 +86,7 @@ public class Register extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-
+                                Register();
                                 sendEmail(user);
                                 System.out.println("usernya " + user.getEmail());
                                 updateUI(user);

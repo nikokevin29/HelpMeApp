@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:background="@color/cardview_dark_background">
@@ -39,95 +40,119 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="25dp">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutHeader">
 
-
-        <Button
-            android:id="@+id/btnConfirm"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/spinnerGender"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:text="CONFIRM" />
-
-        <EditText
-            android:id="@+id/txtPhone"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/txtName"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:hint="Phone Number" />
-
-        <EditText
-            android:id="@+id/txtEmail"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/txtPhone"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:hint="Email"
-            android:editable="false"/>
-
-        <EditText
-            android:id="@+id/txtUsername"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/txtEmail"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:hint="Username" />
-
-        <EditText
-            android:id="@+id/txtPassword"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/txtUsername"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:hint="Password" />
-
-        <EditText
-            android:id="@+id/txtBirth"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/txtPassword"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:hint="Birth Day" />
-
-        <EditText
-            android:id="@+id/txtName"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/logo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:hint="Name" />
-
-        <Spinner
-            android:id="@+id/spinnerGender"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/viewGender"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp" />
-
-        <TextView
-            android:id="@+id/viewGender"
-            android:layout_width="300dp"
+        <androidx.core.widget.NestedScrollView
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtBirth"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:text="Gender" />
+            android:layout_width="match_parent"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+                tools:context=".Register">
+
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_logo"/>
+
+                <EditText
+                    android:id="@+id/etName"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/logo"
+                    android:layout_marginTop="25dp"
+                    android:hint="Name"/>
+
+                <EditText
+                    android:id="@+id/etPhone"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/etName"
+                    android:layout_marginTop="25dp"
+                    android:hint="Phone Number"/>
+
+                <EditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/etPhone"
+                    android:layout_marginTop="25dp"
+                    android:hint="Email"/>
+
+                <EditText
+                    android:id="@+id/etUsername"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/etEmail"
+                    android:layout_marginTop="25dp"
+                    android:hint="Username"/>
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/etUsername"
+                    android:layout_marginTop="25dp"
+                    android:inputType="textPassword"
+                    android:hint="Password"/>
+
+                <TextView
+                    android:id="@+id/etBirth"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/etPassword"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:background="#03FC94"
+                    android:gravity="center"
+                    android:hint="Pick Birthday"
+                    android:textColor="#11241F"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/viewGender"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/etBirth"
+                    android:layout_marginTop="5dp"
+                    android:text="Gender" />
+
+                <Spinner
+                    android:id="@+id/spinnerGender"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/viewGender"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:entries="@array/gender" />
+
+                <Button
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/spinnerGender"
+                    android:layout_marginTop="25dp"
+                    android:text="REGISTER"
+                    android:id="@+id/btnConfirm" />
+
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
 </RelativeLayout>
