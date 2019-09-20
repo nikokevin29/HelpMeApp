@@ -165,7 +165,7 @@ public class AddReport extends AppCompatActivity {
         //getAddress(latitude,longitude);
         String alamat = getAddress(AddReport.this,latitude,longitude);
         tvLocation.setText(alamat);
-        Toast.makeText(AddReport.this,"alamat"+alamat,Toast.LENGTH_LONG).show(); //tampilin toast
+        //Toast.makeText(AddReport.this,"alamat"+alamat,Toast.LENGTH_LONG).show(); //tampilin toast
     }
     private String getAddress(Context c, double latitude, double longitude) {
         String alamat =null;
