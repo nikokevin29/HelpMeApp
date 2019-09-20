@@ -66,12 +66,13 @@
             android:layout_marginTop="20dp">
 
             <TextView
+                android:id="@+id/pic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Take a Picture"
                 android:layout_weight="10"/>
             <ImageView
-
+                android:id="@+id/camera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_camera"

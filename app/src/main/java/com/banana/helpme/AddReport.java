@@ -1,23 +1,30 @@
 package com.banana.helpme;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,6 +34,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -37,13 +45,16 @@ public class AddReport extends AppCompatActivity {
     private ImageButton NavBack;
     private Spinner category;
     private LinearLayout btnCamera, btnLocation;
-    private TextView tvLocation;
+    private TextView tvLocation, tvPicture;
     private EditText description;
     private Button btnPost;
 
-    private Image image;
+    private ImageView camera;
     private LocationManager locationManager;
     private double latitude, longitude;
+
+    private String photoData;
+    final int cameraCode = 99;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +69,8 @@ public class AddReport extends AppCompatActivity {
         btnPost = (Button) findViewById(R.id.btnPost);
 
         tvLocation = (TextView) findViewById(R.id.tvLocation);
+        tvPicture = (TextView) findViewById(R.id.pic);
+        camera = (ImageView) findViewById(R.id.camera);
 
         NavBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +99,57 @@ public class AddReport extends AppCompatActivity {
         final Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
 
         onLocationChanged(location);
+
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intentCamera, cameraCode);
+            }
+        });
+
+        btnLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onLocationChanged(location);
+            }
+        });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == cameraCode && resultCode == RESULT_OK){
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            camera.setImageBitmap(bitmap);
+            photoData = BitMapToString(bitmap);
+        }
+    }
+
+    public String BitMapToString(Bitmap bitmap){
+        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b=baos.toByteArray();
+        String temp= Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
+    }
+
+    /**
+     * @param encodedString
+     * @return bitmap (from given string)
+     */
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+
     public void onLocationChanged(final Location location)
     {
         double longitude = location.getLongitude();
@@ -96,7 +159,7 @@ public class AddReport extends AppCompatActivity {
         //getAddress(latitude,longitude);
         String alamat = getAddress(AddReport.this,latitude,longitude);
         tvLocation.setText(alamat);
-        //Toast.makeText(AddReport.this,"alamat"+alamat,Toast.LENGTH_LONG).show(); //tampilin toast
+        Toast.makeText(AddReport.this,"alamat"+alamat,Toast.LENGTH_LONG).show(); //tampilin toast
     }
     private String getAddress(Context c, double latitude, double longitude) {
         String alamat =null;

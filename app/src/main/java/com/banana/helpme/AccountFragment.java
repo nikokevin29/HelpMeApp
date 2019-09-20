@@ -51,10 +51,7 @@ public class AccountFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-
-        //tvNama.setText(userModel.getNama());
-        //tvUsername.setText(userModel.getUsername());
-        showInfo();
+        //showInfo();
         logout(); //fungsi button logout
         return view;
 

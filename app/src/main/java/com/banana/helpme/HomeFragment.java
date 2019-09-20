@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<ReportDAO>> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to load report", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Failed to load report", Toast.LENGTH_SHORT).show();
             }
         });
     }
