@@ -85,7 +85,7 @@ public class AddTips extends AppCompatActivity {
             public void onClick(View v) {
                 ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
                 Call<String> tipsDAOcall = apiService.addTips(title.getText().toString(),
-                        description.getText().toString(), bitmapImg.toString(), "pradnya123", getSysDate());
+                        description.getText().toString(), stringImg, "pradnya123", getSysDate());
                 tipsDAOcall.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
