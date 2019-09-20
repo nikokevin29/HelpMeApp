@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +28,7 @@ public class Login extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private TextView btnRegister;
     private Button btnLogin;
-
+    private ProgressDialog progressDialog;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private boolean loggedIn;
@@ -38,6 +39,10 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Loading..");
+        progressDialog.setMessage("Verify data");
+        progressDialog.setCancelable(false);
 
         mAuth = FirebaseAuth.getInstance();
         btnRegister = (TextView) findViewById(R.id.textRegister); //init button register
@@ -46,6 +51,7 @@ public class Login extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent reg = new Intent(Login.this, Register.class);
                 startActivity(reg);
             }
@@ -60,6 +66,7 @@ public class Login extends AppCompatActivity {
                 loggedIn = isLoggedIn();
                 if (loggedIn) {
                     goToMain(); //go to mainactivity
+
                 }
             }/*else{
                 sendEmail(user);
@@ -70,6 +77,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //else{
+                progressDialog.show();
                 String email = etEmail.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
@@ -85,6 +93,7 @@ public class Login extends AppCompatActivity {
 
     private void goToMain()
     {
+
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -107,11 +116,13 @@ public class Login extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     //  login sucess
                     //  go to mainactivity
+
                     user = mAuth.getCurrentUser();
                     //System.out.println(user.getEmail()+" "+user.isEmailVerified());
                     if(user.isEmailVerified())
                     {
                         goToMain();
+
                         //proses data profil disini
                     }else{
                         sendEmail(user);
