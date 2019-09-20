@@ -75,6 +75,7 @@ public class AddReport extends AppCompatActivity {
         tvPicture = (TextView) findViewById(R.id.pic);
         camera = (ImageView) findViewById(R.id.camera);
 
+        mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
         NavBack.setOnClickListener(new View.OnClickListener() {

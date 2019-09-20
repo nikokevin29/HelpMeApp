@@ -52,6 +52,7 @@ public class AddTips extends AppCompatActivity {
         btnShare = (Button) findViewById(R.id.btnShare);
         camera = (ImageView) findViewById(R.id.cameraLogo);
 
+        mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
         NavBack.setOnClickListener(new View.OnClickListener() {
