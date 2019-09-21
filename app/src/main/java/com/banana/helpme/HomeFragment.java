@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment {
     private List<ReportDAO> ListReport;
     private RecyclerView recyclerReport;
     private ReportAdapter adapterReport;
-    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.LayoutManager mLayoutManager;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
         ListReport = new ArrayList<>();
         recyclerReport = view.findViewById(R.id.recycler_view_report);
         adapterReport = new ReportAdapter(getContext(), ListReport);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerReport.setLayoutManager(mLayoutManager);
         recyclerReport.setItemAnimator(new DefaultItemAnimator());
         recyclerReport.setAdapter(adapterReport);

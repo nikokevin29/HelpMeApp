@@ -65,9 +65,8 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
 
     @Override
     public int getItemCount() {
-        return result.size();
+        return 0;
     }
-
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView username, waktu, kategori, alamat, deskripsi;
         private LinearLayout parent;
@@ -81,10 +80,8 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
             deskripsi = itemView.findViewById(R.id.tvDeskripsi);
             parent = itemView.findViewById(R.id.Parent);
         }
-        public void onClick(View view){
+        public void onClick(View view) {
             Toast.makeText(context, "You touch me?", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 }
