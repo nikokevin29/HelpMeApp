@@ -65,12 +65,13 @@ public class AccountFragment extends Fragment {
             @Override
             public void onResponse(Call<UserDAO> call, Response<UserDAO> response) {
                 userModel = response.body();
-                tvNama.setText(userModel.getNama());
+                tvNama.setText(userModel.getName());
                 tvUsername.setText(userModel.getUsername());
                 tvEmail.setText(userModel.getEmail());
-                tvPhone.setText(userModel.getTelepon());
-                tvBirthday.setText(userModel.getTanggal_lahir());
+                tvPhone.setText(userModel.getPhone());
+                tvBirthday.setText(userModel.getBirth());
                 tvGender.setText(userModel.getGender());
+
             }
 
             @Override
