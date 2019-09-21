@@ -31,7 +31,7 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.MyViewHolder> 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.activity_view_tips,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.activity_tips_adapter,parent,false);
         final MyViewHolder holder = new MyViewHolder(v);
 
         return holder;
@@ -45,12 +45,12 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.MyViewHolder> 
         holder.judul.setText(tips.getTitle());
         holder.deskripsi.setText(tips.getDescription());
 
-        holder.parent.setOnClickListener(new View.OnClickListener() {
+        /*holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadFragment(new ViewTips());
             }
-        });
+        });*/
     }
     private boolean loadFragment(Fragment fragment){
         if(fragment != null){
@@ -64,7 +64,7 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return 0;
+        return result.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -75,9 +75,9 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.MyViewHolder> 
         {
             super(itemView);
             username = itemView.findViewById(R.id.tvNama);
-            waktu =  itemView.findViewById(R.id.tvTanggal);
+            waktu =  itemView.findViewById(R.id.tvTanggaltips);
             judul = itemView.findViewById(R.id.tvJudul);
-            deskripsi = itemView.findViewById(R.id.tvDescription);
+            deskripsi = itemView.findViewById(R.id.tvDeskripsitips);
             parent =  itemView.findViewById(R.id.parent);
         }
         public void onClick(View view)

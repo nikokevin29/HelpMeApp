@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.banana.helpme.Api.ApiClient;
 import com.banana.helpme.Api.ApiUserInterface;
+import com.banana.helpme.UserData.UserDAO;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +45,7 @@ public class AddTips extends AppCompatActivity {
     final int galleryCode = 100;
     Uri imageUri;
     Bitmap bitmapImg;
-    String stringImg;
+    String stringImg, username;
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -85,7 +87,7 @@ public class AddTips extends AppCompatActivity {
             public void onClick(View v) {
                 ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
                 Call<String> tipsDAOcall = apiService.addTips(title.getText().toString(),
-                        description.getText().toString(), stringImg, "pradnya123", getSysDate());
+                        description.getText().toString(), stringImg, username, getSysDate());
                 tipsDAOcall.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
@@ -130,5 +132,28 @@ public class AddTips extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    private String getUsername(){
+        ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
+        System.out.println(user.getEmail());
+        Call<List<UserDAO>> userDAOCall = apiService.getAllUser();
+        userDAOCall.enqueue(new Callback<List<UserDAO>>() {
+            @Override
+            public void onResponse(Call<List<UserDAO>> call, Response<List<UserDAO>> response) {
+                for (int i=0; i<response.body().size(); i++){
+                    if(response.body().get(i).getEmail().equals(user.getEmail())){
+                        username = response.body().get(i).getUsername();
+                        System.out.println(username);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<UserDAO>> call, Throwable t) {
+                System.out.println("gagal");
+            }
+        });
+        return username;
     }
 }

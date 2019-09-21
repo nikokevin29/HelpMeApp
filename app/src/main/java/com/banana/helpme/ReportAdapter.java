@@ -39,18 +39,18 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        ReportDAO report = result.get(position);
+        final ReportDAO report = result.get(position);
         holder.username.setText(report.getUsername());
         holder.waktu.setText(report.getDatetime());
         holder.alamat.setText(report.getAlamat());
         holder.deskripsi.setText(report.getDescription());
-
-        holder.parent.setOnClickListener(new View.OnClickListener() {
+        holder.kategori.setText(report.getKategori());
+        /*holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadFragment(new ViewReport());
             }
-        });
+        });*/
     }
 
     private boolean loadFragment(Fragment fragment) {
@@ -65,7 +65,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
 
     @Override
     public int getItemCount() {
-        return 0;
+        return result.size();
     }
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView username, waktu, kategori, alamat, deskripsi;
@@ -73,9 +73,9 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
 
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
-            username = itemView.findViewById(R.id.tvNama);
-            waktu = itemView.findViewById(R.id.tvTanggal);
-            kategori = itemView.findViewById(R.id.tvKategori);
+            username = itemView.findViewById(R.id.tvNamareport);
+            waktu = itemView.findViewById(R.id.tvTanggalreport);
+            kategori = itemView.findViewById(R.id.tvKategorireport);
             alamat = itemView.findViewById(R.id.tvAlamat);
             deskripsi = itemView.findViewById(R.id.tvDeskripsi);
             parent = itemView.findViewById(R.id.Parent);

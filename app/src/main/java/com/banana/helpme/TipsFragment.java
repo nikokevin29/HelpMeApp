@@ -37,16 +37,21 @@ public class TipsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_tips_fragment, container, false);
 
-        ListTips = new ArrayList<>();
         recyclerTips = view.findViewById(R.id.recycler_view_tips);
+
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ListTips = new ArrayList<>();
         tipsAdapter = new TipsAdapter(getContext(),ListTips);
         mLayoutmanager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerTips.setLayoutManager(mLayoutmanager);
         recyclerTips.setItemAnimator(new DefaultItemAnimator());
         recyclerTips.setAdapter(tipsAdapter);
         setRecycleTips();
-
-        return view;
     }
 
     public void setRecycleTips(){
@@ -56,9 +61,10 @@ public class TipsFragment extends Fragment {
         tipsDAOCall.enqueue(new Callback<List<TipsDAO>>() {
             @Override
             public void onResponse(Call<List<TipsDAO>> call, Response<List<TipsDAO>> response) {
+                System.out.println(response.body().get(0).getTitle());
                 ListTips.addAll(response.body());
                 tipsAdapter.notifyDataSetChanged();
-                Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Welcome", Toast.LENGTH_SHORT).show();
             }
 
             @Override

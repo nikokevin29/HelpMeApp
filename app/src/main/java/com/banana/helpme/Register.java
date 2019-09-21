@@ -218,7 +218,6 @@ public class Register extends AppCompatActivity {
                 etPhone.getText().toString()+" "+
                 etEmail.getText().toString()+" "+
                 etUsername.getText().toString()+" "+
-                etPassword.getText().toString()+" "+
                 etBirth.getText().toString()+" "+
                 selectedGender);
 
@@ -227,7 +226,6 @@ public class Register extends AppCompatActivity {
                     etPhone.getText().toString(),
                     etEmail.getText().toString(),
                     etUsername.getText().toString(),
-                    etPassword.getText().toString(),
                     etBirth.getText().toString(),
                     selectedGender);
         System.out.println("passing USERDAOCALL addUser");

@@ -6,8 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="8dp"
 
-    app:cardCornerRadius="6dp"
-    app:cardElevation="6dp"
+    app:cardCornerRadius="1dp"
+    app:cardElevation="2dp"
     app:cardBackgroundColor="@color/cardview_shadow_end_color"
     tools:context=".ReportAdapter">
     <LinearLayout
@@ -26,13 +26,13 @@
                 android:orientation="vertical"
                 android:layout_weight="9">
                 <TextView
-                    android:id="@+id/tvNama"
+                    android:id="@+id/tvNamareport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Anto Isman"
                     android:textSize="14dp" />
                 <TextView
-                    android:id="@+id/tvTanggal"
+                    android:id="@+id/tvTanggalreport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="tanggal"
@@ -40,7 +40,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tvKategori"
+                android:id="@+id/tvKategorireport"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"

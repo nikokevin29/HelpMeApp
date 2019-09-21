@@ -1,16 +1,15 @@
 package com.banana.helpme.UserData;
 
 public class UserDAO {
-    private String id, name, phone, email, username, password, birth, gender;
+    private String id, name, phone, email, username, birth, gender;
 
     public UserDAO(){}
-    public UserDAO(String id, String name, String phone, String email, String username, String password, String birth, String gender) {
+    public UserDAO(String id, String name, String phone, String email, String username, String birth, String gender) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.username = username;
-        this.password = password;
         this.birth = birth;
         this.gender = gender;
     }
@@ -53,14 +52,6 @@ public class UserDAO {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getBirth() {

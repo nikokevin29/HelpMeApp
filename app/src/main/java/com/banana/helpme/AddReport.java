@@ -30,6 +30,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.banana.helpme.Api.ApiClient;
+import com.banana.helpme.Api.ApiUserInterface;
+import com.banana.helpme.UserData.ReportDAO;
+import com.banana.helpme.UserData.UserDAO;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -40,6 +44,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddReport extends AppCompatActivity {
     private ImageButton NavBack;
@@ -55,6 +63,7 @@ public class AddReport extends AppCompatActivity {
 
     private String photoData;
     final int cameraCode = 99;
+    String alamat, username;
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -120,6 +129,13 @@ public class AddReport extends AppCompatActivity {
                 onLocationChanged(location);
             }
         });
+
+        btnPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createReport();
+            }
+        });
     }
 
     @Override
@@ -163,7 +179,7 @@ public class AddReport extends AppCompatActivity {
 
         Toast.makeText(this, "Lat : " + latitude + " Long : " + longitude, Toast.LENGTH_SHORT).show();
         //getAddress(latitude,longitude);
-        String alamat = getAddress(AddReport.this,latitude,longitude);
+        alamat = getAddress(AddReport.this,latitude,longitude);
         tvLocation.setText(alamat);
         //Toast.makeText(AddReport.this,"alamat"+alamat,Toast.LENGTH_LONG).show(); //tampilin toast
     }
@@ -186,5 +202,48 @@ public class AddReport extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    private String getUsername(){
+        ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
+        System.out.println(user.getEmail());
+        Call<List<UserDAO>> userDAOCall = apiService.getAllUser();
+        userDAOCall.enqueue(new Callback<List<UserDAO>>() {
+            @Override
+            public void onResponse(Call<List<UserDAO>> call, Response<List<UserDAO>> response) {
+                for (int i=0; i<response.body().size(); i++){
+                    if(response.body().get(i).getEmail().equals(user.getEmail())){
+                        username = response.body().get(i).getUsername();
+                        System.out.println(username);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<UserDAO>> call, Throwable t) {
+                System.out.println("gagal");
+            }
+        });
+        return username;
+    }
+
+
+    private void createReport(){
+        String kategori = category.getSelectedItem().toString();
+        ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
+        Call<String> reportDAOCall = apiService.addReport(kategori, photoData, alamat,
+                description.getText().toString(), username, getSysDate());
+        reportDAOCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Toast.makeText(AddReport.this, "Add Report Success", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(AddReport.this, "Add Report Failed", Toast.LENGTH_SHORT).show();
+                System.out.println("PISANG"+t.getMessage());
+            }
+        });
     }
 }

@@ -12,39 +12,38 @@ import retrofit2.http.*;
 public interface ApiUserInterface {
 
     // BUAT PROFIL
+
+    @POST("createProfile.php")
     @FormUrlEncoded
-    @POST("Profile/createProfile")
     Call<String> addUser(@Field("name")String nama,
                           @Field("phone")String telepon,
                           @Field("email")String email,
                           @Field("username")String username,
-                          @Field("password")String password,
                           @Field("birth")String tanggal_lahir,
                           @Field("gender")String gender);
 
-    @GET("Profile/getByEmail/{email}")
-    Call<UserDAO> getUser(@Path("email") String email);
+//    @GET("viewProfile.php/{email}")
+ //   Call<UserDAO> getUser(@Path("email") String email);
 
-    @GET("Profile/getProfile")
+    @GET("viewProfile.php")
     Call<List<UserDAO>> getAllUser();
 
-    @PUT("Profile/updateProfile/{id}")
+    @PUT("updateProfile.php")
     @FormUrlEncoded
     Call<String> editUser(@Path("id") String id,
                           @Field("name")String nama,
                           @Field("phone")String telepon,
                           @Field("email")String email,
                           @Field("username")String username,
-                          @Field("password")String password,
                           @Field("birth")String tanggal_lahir,
                           @Field("gender")String gender);
 
-    @DELETE("Profile/deleteProfile/{id}")
-    Call<String> deleteUser(@Path("id") String id);
+//    @DELETE("Profile/deleteProfile/{id}")
+//    Call<String> deleteUser(@Path("id") String id);
 
     // BUAT REPORT
     @FormUrlEncoded
-    @POST("Report/createReport")
+    @POST("createReport.php")
     Call<String> addReport(@Field("kategori")String kategori,
                          @Field("img")String img,
                          @Field("address")String alamat,
@@ -52,10 +51,10 @@ public interface ApiUserInterface {
                            @Field("username")String username,
                            @Field("datetime")String datetime);
 
-    @GET("Report/getReport")
+    @GET("viewReport.php")
     Call<List<ReportDAO>> getAllReport();
 
-    @PUT("Report/updateReport/{id}")
+    @PUT("updateReport.php")
     @FormUrlEncoded
     Call<String> editReport(@Path("id") String id,
                             @Field("kategori")String kategori,
@@ -65,24 +64,24 @@ public interface ApiUserInterface {
                             @Field("username")String username,
                             @Field("datetime")String datetime);
 
-    @DELETE("Report/deleteReport/{id}")
+    @DELETE("deleteReport.php")
     Call<String> deleteReport(@Path("id") String id);
 
 
     // BUAT Tips
 
     @FormUrlEncoded
-    @POST("Tips/createTips")
+    @POST("createTips.php")
     Call<String> addTips(@Field("title")String title,
                            @Field("description")String description,
                            @Field("img")String img,
                          @Field("username")String username,
                          @Field("datetime")String datetime);
 
-    @GET("Tips/getTips")
+    @GET("viewTips.php")
     Call<List<TipsDAO>> getAllTips();
 
-    @PUT("Tips/updateTips/{id}")
+    @PUT("updateTips.php")
     @FormUrlEncoded
     Call<String> editTips(@Path("id") String id,
                           @Field("title")String title,
@@ -91,7 +90,7 @@ public interface ApiUserInterface {
                           @Field("username")String username,
                           @Field("datetime")String datetime);
 
-    @DELETE("Tips/deleteTips/{id}")
+    @DELETE("deleteTips.php")
     Call<String> deleteTips(@Path("id") String id);
 
 }

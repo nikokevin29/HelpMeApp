@@ -36,16 +36,22 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_home_fragment, container, false);
 
-        ListReport = new ArrayList<>();
         recyclerReport = view.findViewById(R.id.recycler_view_report);
+
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        ListReport = new ArrayList<>();
         adapterReport = new ReportAdapter(getContext(), ListReport);
         mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerReport.setLayoutManager(mLayoutManager);
         recyclerReport.setItemAnimator(new DefaultItemAnimator());
         recyclerReport.setAdapter(adapterReport);
         setRecycleView();
-
-        return view;
     }
 
     public void setRecycleView(){
@@ -56,13 +62,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<ReportDAO>> call, Response<List<ReportDAO>> response) {
                 ListReport.addAll(response.body());
+                System.out.println(ListReport.get(0).getDescription());
                 adapterReport.notifyDataSetChanged();
-                Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "Welcome", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<List<ReportDAO>> call, Throwable t) {
-                //Toast.makeText(getContext(), "Failed to load report", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Failed to load report", Toast.LENGTH_SHORT).show();
             }
         });
     }

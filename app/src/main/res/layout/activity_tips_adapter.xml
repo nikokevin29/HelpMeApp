@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
-    app:cardCornerRadius="6dp"
-    app:cardElevation="6dp"
+    app:cardCornerRadius="1dp"
+    app:cardElevation="2dp"
     app:cardBackgroundColor="@color/cardview_shadow_end_color">
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
                     android:text="Anto Isman"
                     android:textSize="15dp" />
                 <TextView
-                    android:id="@+id/tvTanggal"
+                    android:id="@+id/tvTanggaltips"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="tanggal"
@@ -35,7 +35,7 @@
                 android:layout_marginTop="8dp" />
 
         <TextView
-            android:id="@+id/tvDeskripsi"
+            android:id="@+id/tvDeskripsitips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="deskripsi"

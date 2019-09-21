@@ -77,7 +77,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //else{
-                progressDialog.show();
+               // progressDialog.show();
                 String email = etEmail.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
