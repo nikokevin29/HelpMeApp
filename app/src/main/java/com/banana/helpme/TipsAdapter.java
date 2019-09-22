@@ -6,7 +6,10 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +18,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.banana.helpme.Api.ApiClient;
+import com.banana.helpme.Api.ApiUserInterface;
+import com.banana.helpme.UserData.ReportDAO;
 import com.banana.helpme.UserData.TipsDAO;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.MyViewHolder> {
     private Context context;
@@ -61,6 +71,13 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.MyViewHolder> 
                 loadFragment(fragment);
             }
         });
+        holder.parent.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                showDialog(tips);
+                return false;
+            }
+        });
     }
     private boolean loadFragment(Fragment fragment){
         if(fragment != null){
@@ -94,5 +111,68 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.MyViewHolder> 
         {
             Toast.makeText(context, "You Tach Mi !!", Toast.LENGTH_SHORT).show();
         }
+    }
+    private void showDialog(final TipsDAO hasil){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        // set title dialog
+        alertDialogBuilder.setTitle("What's next?");
+
+        // set pesan dari dialog
+        alertDialogBuilder
+                .setIcon(R.mipmap.ic_launcher)
+                .setCancelable(false)
+                .setPositiveButton("Edit",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // update report
+                        startIntent(hasil);
+
+                    }
+                })
+                .setNegativeButton("Delete",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //delete report
+                        deleteTips(hasil.getId());
+
+                    }
+                })
+                .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.cancel();
+                    }
+                });
+
+        // membuat alert dialog dari builder
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // menampilkan alert dialog
+        alertDialog.show();
+    }
+    private void startIntent(TipsDAO hasil){
+        Intent edit = new Intent(context, EditTips.class);
+        edit.putExtra("title", hasil.getTitle());
+        edit.putExtra("description", hasil.getDescription());
+        edit.putExtra("img", hasil.getImg());
+        context.startActivity(edit);
+    }
+    private void deleteTips(String id){
+        ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
+        Call<String> tipsDAOCall = apiService.deleteTips(id);
+
+        tipsDAOCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                //reverse close
+                Toast.makeText(context, "Fail Deleteing tips", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+                Toast.makeText(context, "Success Deleteing tips", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }

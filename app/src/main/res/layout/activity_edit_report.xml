@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddReport">
+    tools:context=".EditReport">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:id="@+id/Report"
             android:layout_width="196dp"
             android:layout_height="34dp"
-            android:text="Report"
+            android:text="Edit Report"
             android:textColor="@color/cardview_light_background"
             android:textSize="23dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -79,7 +79,7 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/tvDescription"
+            android:id="@+id/etDescription"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,6 +91,7 @@
             android:hint="Description"/>
 
         <Button
+            android:id="@+id/btnConfirmEditReport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CONFIRM"
