@@ -58,10 +58,7 @@ public interface ApiUserInterface {
     Call<String> editReport(@Field("id") String id,
                             @Field("kategori")String kategori,
                             @Field("img")String img,
-                            @Field("address")String alamat,
-                            @Field("description")String description,
-                            @Field("username")String username,
-                            @Field("datetime")String datetime);
+                            @Field("description")String description);
 
     @POST("deleteReport.php")
     @FormUrlEncoded

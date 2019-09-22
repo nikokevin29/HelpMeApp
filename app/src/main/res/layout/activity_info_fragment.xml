@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/tv_info"
         android:layout_marginTop="20dp"
-        android:text="Nicholas Kevin"/>
+        android:text="Nicholas Kevin \n 170709142"/>
     <TextView
         android:id="@+id/NPM9153"
         android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/NPM9142"
         android:layout_marginTop="20dp"
-        android:text="Pande Nyoman Pradnya"/>
+        android:text="Pande Nyoman Pradnya \n170709153"/>
     <TextView
         android:id="@+id/NPM9439"
         android:layout_width="wrap_content"

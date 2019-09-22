@@ -52,7 +52,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
         final ReportDAO report = result.get(position);
         holder.username.setText(report.getUsername());
         holder.waktu.setText(report.getDatetime());
-        holder.alamat.setText(report.getAlamat());
+        holder.alamat.setText(report.getAddress());
         holder.deskripsi.setText(report.getDescription());
         holder.kategori.setText(report.getKategori());
         holder.parent.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +63,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
 
                 data.putString("username", report.getUsername());
                 data.putString("waktu", report.getDatetime());
-                data.putString("alamat", report.getAlamat());
+                data.putString("alamat", report.getAddress());
                 data.putString("deskripsi", report.getDescription());
                 data.putString("kategori", report.getKategori());
 
@@ -153,7 +153,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
         edit.putExtra("id", hasil.getId());
         edit.putExtra("username", hasil.getUsername());
         edit.putExtra("waktu", hasil.getDatetime());
-        edit.putExtra("alamat", hasil.getAlamat());
+        edit.putExtra("alamat", hasil.getAddress());
         edit.putExtra("deskripsi", hasil.getDescription());
         edit.putExtra("kategori", hasil.getKategori());
         context.startActivity(edit);

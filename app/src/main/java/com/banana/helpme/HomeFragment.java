@@ -62,14 +62,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<ReportDAO>> call, Response<List<ReportDAO>> response) {
                 ListReport.addAll(response.body());
-                System.out.println(ListReport.get(0).getDescription());
+                System.out.println(ListReport.get(0).getAddress());
                 adapterReport.notifyDataSetChanged();
-//               Toast.makeText(getActivity(), "Welcome", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "Welcome", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<List<ReportDAO>> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to load report", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Failed to load report", Toast.LENGTH_SHORT).show();
             }
         });
     }
