@@ -204,7 +204,7 @@ public class AddReport extends AppCompatActivity {
         return dateFormat.format(date);
     }
 
-    private String getUsername(){
+    private void getUsername(){
         ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
         System.out.println(user.getEmail());
         Call<List<UserDAO>> userDAOCall = apiService.getAllUser();
@@ -224,12 +224,12 @@ public class AddReport extends AppCompatActivity {
                 System.out.println("gagal");
             }
         });
-        return username;
     }
 
 
     private void createReport(){
         String kategori = category.getSelectedItem().toString();
+        getUsername();
         ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
         Call<String> reportDAOCall = apiService.addReport(kategori, photoData, alamat,
                 description.getText().toString(), username, getSysDate());

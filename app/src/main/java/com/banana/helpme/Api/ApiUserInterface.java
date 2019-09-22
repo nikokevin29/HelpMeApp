@@ -28,12 +28,11 @@ public interface ApiUserInterface {
     @GET("viewProfile.php")
     Call<List<UserDAO>> getAllUser();
 
-    @PUT("updateProfile.php")
+    @PUT("updateProfile.php/{email}")
     @FormUrlEncoded
-    Call<String> editUser(@Path("id") String id,
+    Call<String> editUser(@Path("email") String email,
                           @Field("name")String nama,
                           @Field("phone")String telepon,
-                          @Field("email")String email,
                           @Field("username")String username,
                           @Field("birth")String tanggal_lahir,
                           @Field("gender")String gender);

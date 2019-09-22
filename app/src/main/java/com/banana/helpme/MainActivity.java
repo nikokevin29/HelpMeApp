@@ -35,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
             if(getIntent().getStringExtra("from").equalsIgnoreCase("AddPost"))
             {
                 loadFragment(new AddFragment());
+            }else if(getIntent().getStringExtra("from").equalsIgnoreCase("account"))
+            {
+                loadFragment(new AccountFragment());
             }
         }
 

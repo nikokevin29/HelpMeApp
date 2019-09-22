@@ -91,7 +91,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/etPhone"
                     android:layout_marginTop="25dp"
-                    android:hint="Email"/>
+                    android:hint="Email"
+                    android:editable="false"/>
 
                 <EditText
                     android:id="@+id/etUsername"

@@ -51,6 +51,14 @@ public class AccountFragment extends Fragment {
 
         showInfo();
         logout(); //fungsi button logout
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), EditAccount.class);
+                startActivity(i);
+            }
+        });
         return view;
     }
     public void showInfo()
