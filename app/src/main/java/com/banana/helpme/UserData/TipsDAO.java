@@ -1,8 +1,10 @@
 package com.banana.helpme.UserData;
 
 public class TipsDAO {
-    String title,desctiption,img,username,time;
-
+    String title,desctiption,img,username,time,id;
+    public String getId() {
+        return id;
+    }
     public String getTitle() { return title;}
     public void setTitle(String title) { this.title = title;}
     public String getDescription() { return desctiption;}
@@ -14,12 +16,13 @@ public class TipsDAO {
     public String getTime() { return time;}
     public void setTime() { this.time = time;}
     public TipsDAO(){}
-    public TipsDAO(String title,String description,String img)
+    public TipsDAO(String title,String description,String img,String id)
     {
         this.title = title ;
         this.img = img;
         this.desctiption = description;
         this.username = username;
         this.time = time;
+        this.id = id;
     }
 }

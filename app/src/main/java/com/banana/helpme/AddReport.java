@@ -193,7 +193,7 @@ public class AddReport extends AppCompatActivity {
                 alamat = address.getAddressLine(0);
             }
         } catch (IOException e) {
-            Log.e("errror get address", e.getMessage());
+            Log.e("error get address", e.getMessage());
         }
         return alamat;
     }
@@ -218,14 +218,12 @@ public class AddReport extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<List<UserDAO>> call, Throwable t) {
                 System.out.println("gagal");
             }
         });
     }
-
 
     private void createReport(){
         String kategori = category.getSelectedItem().toString();

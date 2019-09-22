@@ -156,6 +156,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
         edit.putExtra("alamat", hasil.getAlamat());
         edit.putExtra("deskripsi", hasil.getDescription());
         edit.putExtra("kategori", hasil.getKategori());
+        context.startActivity(edit);
     }
 
     private void deleteReport(String id){
@@ -165,12 +166,14 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
         reportDAOCall.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                Toast.makeText(context, "Success Deleteing report", Toast.LENGTH_SHORT).show();
+               //reverse close
+                Toast.makeText(context, "Fail Deleteing report", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(context, "Fail Deleteing report", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(context, "Success Deleteing report", Toast.LENGTH_SHORT).show();
             }
         });
 

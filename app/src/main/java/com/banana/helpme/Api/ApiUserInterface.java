@@ -28,7 +28,7 @@ public interface ApiUserInterface {
     @GET("viewProfile.php")
     Call<List<UserDAO>> getAllUser();
 
-    @PUT("updateProfile.php/{email}")
+    @POST("updateProfile.php/{email}")
     @FormUrlEncoded
     Call<String> editUser(@Path("email") String email,
                           @Field("name")String nama,
@@ -53,9 +53,9 @@ public interface ApiUserInterface {
     @GET("viewReport.php")
     Call<List<ReportDAO>> getAllReport();
 
-    @PUT("updateReport.php")
+    @POST("updateReport.php")
     @FormUrlEncoded
-    Call<String> editReport(@Path("id") String id,
+    Call<String> editReport(@Field("id") String id,
                             @Field("kategori")String kategori,
                             @Field("img")String img,
                             @Field("address")String alamat,
@@ -63,12 +63,12 @@ public interface ApiUserInterface {
                             @Field("username")String username,
                             @Field("datetime")String datetime);
 
-    @DELETE("deleteReport.php/{id}")
-    Call<String> deleteReport(@Path("id") String id);
+    @POST("deleteReport.php")
+    @FormUrlEncoded
+    Call<String> deleteReport(@Field("id") String id);
 
 
     // BUAT Tips
-
     @FormUrlEncoded
     @POST("createTips.php")
     Call<String> addTips(@Field("title")String title,
@@ -80,16 +80,17 @@ public interface ApiUserInterface {
     @GET("viewTips.php")
     Call<List<TipsDAO>> getAllTips();
 
-    @PUT("updateTips.php")
+    @POST("updateTips.php")
     @FormUrlEncoded
-    Call<String> editTips(@Path("id") String id,
+    Call<String> editTips(@Field("id") String id,
                           @Field("title")String title,
                           @Field("description")String description,
                           @Field("img")String img,
                           @Field("username")String username,
                           @Field("datetime")String datetime);
 
-    @DELETE("deleteTips.php")
-    Call<String> deleteTips(@Path("id") String id);
+    @POST("deleteTips.php")
+    @FormUrlEncoded
+    Call<String> deleteTips(@Field("id") String id);
 
 }
