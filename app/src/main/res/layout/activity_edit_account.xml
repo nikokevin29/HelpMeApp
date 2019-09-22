@@ -150,7 +150,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/spinnerGender"
                     android:layout_marginTop="25dp"
-                    android:text="REGISTER"
+                    android:text="CONFIRM"
                     android:id="@+id/btnConfirm" />
 
             </RelativeLayout>

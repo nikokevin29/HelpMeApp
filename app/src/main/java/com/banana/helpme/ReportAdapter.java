@@ -5,7 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +19,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.banana.helpme.Api.ApiClient;
+import com.banana.helpme.Api.ApiUserInterface;
 import com.banana.helpme.UserData.ReportDAO;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHolder> {
     private Context context;
@@ -45,12 +55,29 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
         holder.alamat.setText(report.getAlamat());
         holder.deskripsi.setText(report.getDescription());
         holder.kategori.setText(report.getKategori());
-        /*holder.parent.setOnClickListener(new View.OnClickListener() {
+        holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new ViewReport());
+                Bundle data = new Bundle();
+                Fragment fragment = new ViewReport();
+
+                data.putString("username", report.getUsername());
+                data.putString("waktu", report.getDatetime());
+                data.putString("alamat", report.getAlamat());
+                data.putString("deskripsi", report.getDescription());
+                data.putString("kategori", report.getKategori());
+
+                fragment.setArguments(data);
+                loadFragment(fragment);
             }
-        });*/
+        });
+        holder.parent.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                showDialog(report);
+                return false;
+            }
+        });
     }
 
     private boolean loadFragment(Fragment fragment) {
@@ -83,5 +110,69 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
         public void onClick(View view) {
             Toast.makeText(context, "You touch me?", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void showDialog(final ReportDAO hasil){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        // set title dialog
+        alertDialogBuilder.setTitle("What's next?");
+
+        // set pesan dari dialog
+        alertDialogBuilder
+                .setIcon(R.mipmap.ic_launcher)
+                .setCancelable(false)
+                .setPositiveButton("Edit",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // update report
+                        startIntent(hasil);
+                    }
+                })
+                .setNegativeButton("Delete",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //delete report
+                        deleteReport(hasil.getId());
+                    }
+                })
+                .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.cancel();
+                    }
+                });
+
+        // membuat alert dialog dari builder
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // menampilkan alert dialog
+        alertDialog.show();
+    }
+
+    private void startIntent(ReportDAO hasil){
+        Intent edit = new Intent(context, EditReport.class);
+        edit.putExtra("id", hasil.getId());
+        edit.putExtra("username", hasil.getUsername());
+        edit.putExtra("waktu", hasil.getDatetime());
+        edit.putExtra("alamat", hasil.getAlamat());
+        edit.putExtra("deskripsi", hasil.getDescription());
+        edit.putExtra("kategori", hasil.getKategori());
+    }
+
+    private void deleteReport(String id){
+        ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
+        Call<String> reportDAOCall = apiService.deleteReport(id);
+
+        reportDAOCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Toast.makeText(context, "Success Deleteing report", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(context, "Fail Deleteing report", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }

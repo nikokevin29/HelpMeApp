@@ -3,17 +3,26 @@ package com.banana.helpme.UserData;
 import java.util.Date;
 
 public class ReportDAO {
-    String username, datetime, kategori, img, description, alamat;
+    String id, username, datetime, kategori, img, description, alamat;
 
     public ReportDAO() {}
 
-    public ReportDAO(String username, String datetime, String kategori, String img, String description, String alamat) {
+    public ReportDAO(String id, String username, String datetime, String kategori, String img, String description, String alamat) {
+        this.id = id;
         this.username = username;
         this.datetime = datetime;
         this.kategori = kategori;
         this.img = img;
         this.description = description;
         this.alamat = alamat;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {

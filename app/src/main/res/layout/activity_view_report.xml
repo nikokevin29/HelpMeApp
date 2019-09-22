@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageButton
-            android:id="@+id/ic_back"
+            android:id="@+id/ic_back_view_rep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/cardview_dark_background"
@@ -32,7 +32,7 @@
             app:srcCompat="?attr/actionModeCloseDrawable" />
 
         <TextView
-            android:id="@+id/tvHeader"
+            android:id="@+id/tvHeaderRep"
             android:layout_width="196dp"
             android:layout_height="34dp"
             android:text="Nama - Kategori"
@@ -84,14 +84,14 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/tvNama"
+                                android:id="@+id/tvNamaRep"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Anto Isman"
                                 android:textSize="17dp" />
 
                             <TextView
-                                android:id="@+id/tvTanggal"
+                                android:id="@+id/tvTanggalRep"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="tanggal"
@@ -134,7 +134,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tvDescription"
+                            android:id="@+id/tvDescriptionRep"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"

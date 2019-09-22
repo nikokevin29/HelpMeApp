@@ -103,9 +103,11 @@ public class Login extends AppCompatActivity {
         if (TextUtils.isEmpty(email)) {
             Snackbar.make(findViewById(android.R.id.content), "Masukan email yang valid", Snackbar.LENGTH_LONG)
                     .show();
+            progressDialog.dismiss();
         } else if (TextUtils.isEmpty(password)) {
             Snackbar.make(findViewById(android.R.id.content), "Masukan password yang valid", Snackbar.LENGTH_LONG)
                     .show();
+            progressDialog.dismiss();
         } else {
             //  do login
             mAuth.signInWithEmailAndPassword(email, password)
@@ -115,20 +117,24 @@ public class Login extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     //  login sucess
                     //  go to mainactivity
-
+                    progressDialog.dismiss();
                     user = mAuth.getCurrentUser();
+
                     //System.out.println(user.getEmail()+" "+user.isEmailVerified());
                     if(user.isEmailVerified())
                     {
+                        progressDialog.dismiss();
                         goToMain();
 
                         //proses data profil disini
                     }else{
+                        progressDialog.dismiss();
                         sendEmail(user);
 
                     }
                 } else {
                     //  login failed
+                    progressDialog.dismiss();
                     showMessageBox("Login failed. Your username and password is not matched");
                 }
                 }

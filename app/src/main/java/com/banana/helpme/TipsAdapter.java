@@ -2,6 +2,7 @@ package com.banana.helpme;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,18 +40,27 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        TipsDAO tips = result.get(position);
+        final TipsDAO tips = result.get(position);
         holder.username.setText(tips.getUsername());
         holder.waktu.setText(tips.getTime());
         holder.judul.setText(tips.getTitle());
         holder.deskripsi.setText(tips.getDescription());
 
-        /*holder.parent.setOnClickListener(new View.OnClickListener() {
+        holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new ViewTips());
+                Bundle data = new Bundle();
+                Fragment fragment = new ViewTips();
+
+                data.putString("username", tips.getUsername());
+                data.putString("waktu", tips.getTime());
+                data.putString("judul", tips.getTitle());
+                data.putString("deskripsi", tips.getDescription());
+
+                fragment.setArguments(data);
+                loadFragment(fragment);
             }
-        });*/
+        });
     }
     private boolean loadFragment(Fragment fragment){
         if(fragment != null){
@@ -69,7 +79,7 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView username, waktu, judul, deskripsi;
-        private LinearLayout parent;
+        private CardView parent;
 
         public MyViewHolder(@NonNull View itemView)
         {
@@ -78,7 +88,7 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.MyViewHolder> 
             waktu =  itemView.findViewById(R.id.tvTanggaltips);
             judul = itemView.findViewById(R.id.tvJudul);
             deskripsi = itemView.findViewById(R.id.tvDeskripsitips);
-            parent =  itemView.findViewById(R.id.parent);
+            parent =  itemView.findViewById(R.id.ParentTips);
         }
         public void onClick(View view)
         {

@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
                 ListReport.addAll(response.body());
                 System.out.println(ListReport.get(0).getDescription());
                 adapterReport.notifyDataSetChanged();
-//                Toast.makeText(getActivity(), "Welcome", Toast.LENGTH_SHORT).show();
+//               Toast.makeText(getActivity(), "Welcome", Toast.LENGTH_SHORT).show();
             }
 
             @Override

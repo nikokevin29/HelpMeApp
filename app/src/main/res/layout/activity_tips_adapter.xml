@@ -6,7 +6,8 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="1dp"
     app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/cardview_shadow_end_color">
+    app:cardBackgroundColor="@color/cardview_shadow_end_color"
+    android:id="@+id/ParentTips">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

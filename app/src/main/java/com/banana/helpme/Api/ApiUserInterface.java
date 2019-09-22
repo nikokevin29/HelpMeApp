@@ -63,7 +63,7 @@ public interface ApiUserInterface {
                             @Field("username")String username,
                             @Field("datetime")String datetime);
 
-    @DELETE("deleteReport.php")
+    @DELETE("deleteReport.php/{id}")
     Call<String> deleteReport(@Path("id") String id);
 
 
