@@ -11,7 +11,8 @@
         android:text="REPORT"
         android:layout_centerHorizontal="true"
         android:textSize="20dp"
-        android:layout_marginTop="173dp"/>
+        android:layout_marginTop="170dp"
+        android:textColor="@color/colorPrimaryDark"/>
 
     <ImageButton
         android:id="@+id/btnReport"
@@ -29,7 +30,8 @@
         android:layout_centerHorizontal="true"
         android:textSize="20dp"
         android:layout_below="@id/btnReport"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"
+        android:textColor="@color/colorPrimaryDark"/>
 
     <ImageButton
         android:id="@+id/btnTips"
@@ -38,7 +40,7 @@
         android:layout_below="@+id/tvTips"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:src="@drawable/ic_report" />
+        android:src="@drawable/ic_tips" />
 
 
 </RelativeLayout>

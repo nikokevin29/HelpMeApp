@@ -6,11 +6,34 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:background="@color/colorPrimaryDark"
+        tools:ignore="MissingConstraints"
+        android:id="@+id/report_page_header">
+
+        <TextView
+            android:id="@+id/Report"
+            android:layout_width="196dp"
+            android:layout_height="34dp"
+            android:text="Report"
+            android:textColor="@color/colorPrimary"
+            android:textSize="23dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.223"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.473" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recycler_view_report"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    app:layout_constraintTop_toBottomOf="@+id/report_page_header" />
 </androidx.constraintlayout.widget.ConstraintLayout>

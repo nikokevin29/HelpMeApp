@@ -7,7 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="270dp"
+        android:background="@color/colorMid">
 
         <RelativeLayout
             android:id="@+id/btnLogout"
@@ -20,7 +21,8 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/imgLogout"
                 android:layout_marginTop="10dp"
-                android:text="Logout"/>
+                android:text="Logout"
+                android:textColor="@color/colorPrimary"/>
             <ImageButton
                 android:id="@+id/imgLogout"
                 android:layout_width="wrap_content"
@@ -51,7 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@id/imgEdit"
-                android:text="Edit Profile" />
+                android:text="Edit Profile"
+                android:textColor="@color/colorPrimary"/>
 
         </RelativeLayout>
 
@@ -60,18 +63,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvFullName"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/tvFullName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginTop="10dp"
-            android:textColor="#2F4033"
-            android:textColorHighlight="#00B17878"
-            android:textSize="21sp"
-            android:textStyle="bold" />
+            android:layout_marginTop="8dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHighlight="@color/colorAccent"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
     </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -82,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="vertical"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"

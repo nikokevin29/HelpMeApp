@@ -4,10 +4,10 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="8dp"
+    android:layout_margin="0dp"
 
     app:cardCornerRadius="1dp"
-    app:cardElevation="2dp"
+    app:cardElevation="1dp"
     app:cardBackgroundColor="@color/cardview_shadow_end_color"
     tools:context=".ReportAdapter">
     <LinearLayout
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="7dp">
+        android:layout_margin="10dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="9">
+                android:layout_weight="15">
                 <TextView
                     android:id="@+id/tvNamareport"
                     android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="tanggal"
-                    android:textSize="10dp"/>
+                    android:textSize="7dp"/>
             </LinearLayout>
 
             <TextView
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="7dp">
+            android:layout_marginTop="10dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,16 +62,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="alamat"
-                android:textSize="13dp"
+                android:textSize="12dp"
                 android:layout_marginTop="2dp"
-                android:textColor="@color/endblue"/>
+                android:textColor="#4444FF"/>
         </LinearLayout>
         <TextView
             android:id="@+id/tvDeskripsi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="deskripsi"
-            android:textSize="12dp"/>
+            android:textSize="12dp"
+            android:layout_marginTop="3dp"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
