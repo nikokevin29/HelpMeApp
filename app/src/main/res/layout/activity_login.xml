@@ -15,7 +15,8 @@
         android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif-condensed-medium"
         android:textSize="50dp"
-        android:text="Help Me !" />
+        android:text="Help Me !"
+        android:textColor="@color/colorMid"/>
 
     <EditText
         android:id="@+id/etEmail"

@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ViewTips">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/head"
         android:layout_width="match_parent"
         android:layout_height="53dp"
-        android:background="@color/cardview_dark_background"
+        android:background="@color/colorPrimaryDark"
         tools:layout_editor_absoluteX="26dp"
         tools:layout_editor_absoluteY="0dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +22,7 @@
             android:id="@+id/ic_back_view_tips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/cardview_dark_background"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:tint="@android:color/background_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/EditProfil"
@@ -32,14 +33,14 @@
 
         <TextView
             android:id="@+id/tvHeaderTips"
-            android:layout_width="196dp"
+            android:layout_width="325dp"
             android:layout_height="34dp"
-            android:text="Nama - Kategori"
+            android:text="Nama"
             android:textColor="@color/cardview_light_background"
             android:textSize="23dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.288"
+            app:layout_constraintHorizontal_bias="0.697"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.473" />
@@ -58,17 +59,17 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:context=".ViewReport">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_margin="3dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp">
 
                     <LinearLayout
                         android:id="@+id/viewHeader"
@@ -81,7 +82,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Anto Isman"
-                                android:textSize="17dp" />
+                                android:textSize="17dp"
+                                android:textStyle="bold"/>
 
                             <TextView
                                 android:id="@+id/tvTanggal"
@@ -105,7 +107,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Judul"
-                            android:textSize="17dp"/>
+                            android:textSize="17dp"
+                            android:textStyle="bold"/>
 
 
                         <TextView

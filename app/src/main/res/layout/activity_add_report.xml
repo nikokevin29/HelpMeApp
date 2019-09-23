@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="53dp"
-        android:background="@color/cardview_dark_background"
+        android:background="@color/colorPrimaryDark"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -30,7 +30,7 @@
             android:id="@+id/ic_nav_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/cardview_dark_background"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:tint="@android:color/background_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

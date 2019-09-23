@@ -19,7 +19,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Anto Isman"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/tvTanggaltips"
                     android:layout_width="match_parent"
@@ -33,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:text="Judul"
                 android:textSize="13dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvDeskripsitips"
