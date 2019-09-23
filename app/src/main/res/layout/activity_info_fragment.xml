@@ -40,7 +40,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/NPM9142"
         android:layout_marginTop="30dp"
-        android:text="Pande Nyoman Pradnya"/>
+        android:text="Pande Nyoman Pradnya Darsana"/>
     <TextView
         android:id="@+id/npm2"
         android:layout_width="wrap_content"

@@ -13,8 +13,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 public class ViewReport extends Fragment {
     private TextView header, nama, tanggal, kategori, alamat, deskripsi;
+    private ImageView image;
     private ImageButton nav_back;
 
     Bundle data;
@@ -43,6 +46,7 @@ public class ViewReport extends Fragment {
         kategori = (TextView) view.findViewById(R.id.tvKategori);
         alamat = (TextView) view.findViewById(R.id.tvLocationView);
         deskripsi = (TextView) view.findViewById(R.id.tvDescriptionRep);
+        image = (ImageView) view.findViewById(R.id.imgReport);
 
         nav_back = (ImageButton) view.findViewById(R.id.ic_back_view_rep);
 
@@ -58,6 +62,7 @@ public class ViewReport extends Fragment {
         alamat.setText(data.getString("alamat"));
         kategori.setText(data.getString("kategori"));
         deskripsi.setText(data.getString("deskripsi"));
+        Glide.with(getActivity().getApplicationContext()).load(data.get("gambar")).into(image);
     }
 
     private boolean loadFragment(Fragment fragment) {

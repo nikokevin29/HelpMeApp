@@ -65,6 +65,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
                 data.putString("username", report.getUsername());
                 data.putString("waktu", report.getDatetime());
                 data.putString("alamat", report.getAddress());
+                data.putString("gambar", report.getImg());
                 data.putString("deskripsi", report.getDescription());
                 data.putString("kategori", report.getKategori());
 

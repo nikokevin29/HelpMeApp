@@ -64,6 +64,7 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.MyViewHolder> 
 
                 data.putString("username", tips.getUsername());
                 data.putString("waktu", tips.getTime());
+                data.putString("gambar", tips.getImg());
                 data.putString("judul", tips.getTitle());
                 data.putString("deskripsi", tips.getDescription());
 

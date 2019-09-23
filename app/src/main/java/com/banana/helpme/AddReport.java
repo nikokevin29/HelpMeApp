@@ -70,7 +70,6 @@ public class AddReport extends AppCompatActivity {
     private LocationManager locationManager;
     private double latitude, longitude;
 
-    private String photoData;
     final int cameraCode = 99;
     private String alamat, username;
 
@@ -82,6 +81,7 @@ public class AddReport extends AppCompatActivity {
 
     // Create a reference to "photo-report"
     StorageReference ReportRef = storageRef.child("photo-report/");
+    public Uri imageURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,30 +152,6 @@ public class AddReport extends AppCompatActivity {
         });
     }
 
-//    public void uploadimage()
-//    {
-//        Uri file = Uri.fromFile(new File("path/to/photo-report/rep1.jpg"));
-//        StorageReference rape = mStorageRef.child("photo-report/rep1.jpg");
-//
-//        rape.putFile(file)
-//                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                        // Get a URL to the uploaded content
-//
-//                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
-//
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception exception) {
-//                        // Handle unsuccessful uploads
-//                        Toast.makeText(AddReport.this, "Upload Photo Failed", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -183,30 +159,6 @@ public class AddReport extends AppCompatActivity {
         if(requestCode == cameraCode && resultCode == RESULT_OK){
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             camera.setImageBitmap(bitmap);
-            photoData = BitMapToString(bitmap);
-        }
-    }
-
-    public String BitMapToString(Bitmap bitmap){
-        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
-        byte [] b=baos.toByteArray();
-        String temp= Base64.encodeToString(b, Base64.DEFAULT);
-        return temp;
-    }
-
-    /**
-     * @param encodedString
-     * @return bitmap (from given string)
-     */
-    public Bitmap StringToBitMap(String encodedString){
-        try {
-            byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
-            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        } catch(Exception e) {
-            e.getMessage();
-            return null;
         }
     }
 
@@ -243,41 +195,8 @@ public class AddReport extends AppCompatActivity {
 
 
     public void createReport(){
-        ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
         System.out.println(user.getEmail());
         uploadImage();
-        Call<List<UserDAO>> userDAOCall = apiService.getAllUser();
-        userDAOCall.enqueue(new Callback<List<UserDAO>>() {
-            @Override
-            public void onResponse(Call<List<UserDAO>> call, Response<List<UserDAO>> response) {
-                for (int i=0; i<response.body().size(); i++){
-                    if(response.body().get(i).getEmail().equals(user.getEmail())){
-                        username = response.body().get(i).getUsername();
-                        System.out.println(username);
-                        String kategori = category.getSelectedItem().toString();
-                        ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
-                        Call<ReportDAO> reportDAOCall = apiService.addReport(kategori, photoData, alamat,
-                                description.getText().toString(), username, getSysDate());
-                        reportDAOCall.enqueue(new Callback<ReportDAO>() {
-                            @Override
-                            public void onResponse(Call<ReportDAO> call, Response<ReportDAO> response) {
-                                Toast.makeText(AddReport.this, "Add Report Success", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onFailure(Call<ReportDAO> call, Throwable t) {
-                                Toast.makeText(AddReport.this, "Add Report Failed", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<List<UserDAO>> call, Throwable t) {
-                System.out.println("gagal");
-            }
-        });
-
     }
 
     public void uploadImage(){
@@ -297,6 +216,7 @@ public class AddReport extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
+                Toast.makeText(AddReport.this, "Problem Uploading Photo", Toast.LENGTH_SHORT).show();
 
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -304,8 +224,46 @@ public class AddReport extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                 // ...
-                Uri url = PhotoRef.getDownloadUrl().getResult();
-                System.out.println("PISANG URL "+url);
+                Task<Uri> url = taskSnapshot.getStorage().getDownloadUrl();
+                while(!url.isSuccessful());
+                Uri downloadURL = url.getResult();
+                imageURL = downloadURL;
+                System.out.println("PISANG URL "+downloadURL);
+                ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
+                Call<List<UserDAO>> userDAOCall = apiService.getAllUser();
+                userDAOCall.enqueue(new Callback<List<UserDAO>>() {
+                    @Override
+                    public void onResponse(Call<List<UserDAO>> call, Response<List<UserDAO>> response) {
+                        for (int i=0; i<response.body().size(); i++){
+                            if(response.body().get(i).getEmail().equals(user.getEmail())){
+                                username = response.body().get(i).getUsername();
+                                System.out.println(username);
+                                String kategori = category.getSelectedItem().toString();
+                                ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
+                                System.out.println("LINK FOTO "+imageURL);
+                                Call<ReportDAO> reportDAOCall = apiService.addReport(kategori, imageURL.toString(), alamat,
+                                        description.getText().toString(), username, getSysDate());
+                                reportDAOCall.enqueue(new Callback<ReportDAO>() {
+                                    @Override
+                                    public void onResponse(Call<ReportDAO> call, Response<ReportDAO> response) {
+                                        Toast.makeText(AddReport.this, "Add Report Success", Toast.LENGTH_SHORT).show();
+                                        Intent post = new Intent(AddReport.this, MainActivity.class);
+                                        startActivity(post);
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ReportDAO> call, Throwable t) {
+                                        Toast.makeText(AddReport.this, "Add Report Failed", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<List<UserDAO>> call, Throwable t) {
+                        System.out.println("gagal");
+                    }
+                });
 
             }
         });

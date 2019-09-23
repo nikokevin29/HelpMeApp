@@ -64,6 +64,8 @@ public class EditAccount extends AppCompatActivity {
         spinnerGender = findViewById(R.id.spinnerGender);
 
         email.setEnabled(false);
+        password.setEnabled(false);
+
         setField();
 
         NavBack.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +80,6 @@ public class EditAccount extends AppCompatActivity {
         Confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 updateProfile();
                 Intent con = new Intent(EditAccount.this, MainActivity.class);
                 con.putExtra("from", "account");

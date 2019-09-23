@@ -1,10 +1,12 @@
 package com.banana.helpme;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,8 +23,14 @@ import com.banana.helpme.Api.ApiClient;
 import com.banana.helpme.Api.ApiUserInterface;
 import com.banana.helpme.UserData.TipsDAO;
 import com.banana.helpme.UserData.UserDAO;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -50,6 +58,13 @@ public class AddTips extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+
+    // Create a storage reference from our app
+    StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+
+    // Create a reference to "photo-report"
+    StorageReference ReportRef = storageRef.child("photo-tips/");
+    public Uri imageURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,41 +101,7 @@ public class AddTips extends AppCompatActivity {
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
-                System.out.println(user.getEmail());
-                Call<List<UserDAO>> userDAOCall = apiService.getAllUser();
-                userDAOCall.enqueue(new Callback<List<UserDAO>>() {
-                    @Override
-                    public void onResponse(Call<List<UserDAO>> call, Response<List<UserDAO>> response) {
-                        for (int i=0; i<response.body().size(); i++){
-                            if(response.body().get(i).getEmail().equals(user.getEmail())){
-                                username = response.body().get(i).getUsername();
-                                ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
-                                Call<TipsDAO> tipsDAOcall = apiService.addTips(title.getText().toString(),
-                                        description.getText().toString(), stringImg, username, getSysDate());
-                                tipsDAOcall.enqueue(new Callback<TipsDAO>() {
-                                    @Override
-                                    public void onResponse(Call<TipsDAO> call, Response<TipsDAO> response) {
-                                        Toast.makeText(AddTips.this, "success", Toast.LENGTH_SHORT).show();
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<TipsDAO> call, Throwable t) {
-                                        Toast.makeText(AddTips.this, "failed", Toast.LENGTH_SHORT).show();
-                                        Intent share = new Intent(AddTips.this, MainActivity.class);
-                                        startActivity(share);
-                                    }
-                                });
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<UserDAO>> call, Throwable t) {
-                        System.out.println("gagal");
-                    }
-                });
-
+                postTips();
             }
         });
     }
@@ -133,25 +114,83 @@ public class AddTips extends AppCompatActivity {
             try {
                 bitmapImg = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
                 camera.setImageBitmap(bitmapImg);
-                stringImg = BitMapToString(bitmapImg);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public String BitMapToString(Bitmap bitmap){
-        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
-        byte [] b=baos.toByteArray();
-        String temp= Base64.encodeToString(b, Base64.DEFAULT);
-        return temp;
-    }
-
     private String getSysDate(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    public void postTips(){
+        // Get the data from an ImageView as bytes
+        System.out.println("BANANA "+storageRef);
+        System.out.println("BANANA "+ReportRef);
+        camera.setDrawingCacheEnabled(true);
+        camera.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) camera.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        final StorageReference PhotoRef = ReportRef.child("img"+getSysDate());
+        final UploadTask uploadTask = PhotoRef.putBytes(data);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+                Task<Uri> url = taskSnapshot.getStorage().getDownloadUrl();
+                while(!url.isSuccessful());
+                Uri downloadURL = url.getResult();
+                imageURL = downloadURL;
+                System.out.println("PISANG URL "+downloadURL);
+                ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
+                System.out.println(user.getEmail());
+                Call<List<UserDAO>> userDAOCall = apiService.getAllUser();
+                userDAOCall.enqueue(new Callback<List<UserDAO>>() {
+                    @Override
+                    public void onResponse(Call<List<UserDAO>> call, Response<List<UserDAO>> response) {
+                        for (int i=0; i<response.body().size(); i++){
+                            if(response.body().get(i).getEmail().equals(user.getEmail())){
+                                username = response.body().get(i).getUsername();
+                                ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
+                                Call<TipsDAO> tipsDAOcall = apiService.addTips(title.getText().toString(),
+                                        description.getText().toString(), imageURL.toString(), username, getSysDate());
+                                tipsDAOcall.enqueue(new Callback<TipsDAO>() {
+                                    @Override
+                                    public void onResponse(Call<TipsDAO> call, Response<TipsDAO> response) {
+                                        Toast.makeText(AddTips.this, "success", Toast.LENGTH_SHORT).show();
+                                        Intent share = new Intent(AddTips.this, MainActivity.class);
+                                        share.putExtra("from","tips");
+                                        startActivity(share);
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<TipsDAO> call, Throwable t) {
+                                        Toast.makeText(AddTips.this, "failed", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<UserDAO>> call, Throwable t) {
+                        System.out.println("gagal");
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AddTips.this, "Problem Uploading Photo", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

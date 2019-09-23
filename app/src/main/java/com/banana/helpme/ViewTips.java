@@ -11,15 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.banana.helpme.UserData.TipsDAO;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewTips extends Fragment {
     private TextView header, username, tanggal, judul, deskripsi;
+    private ImageView image;
     private ImageButton nav_back;
 
     Bundle data;
@@ -46,6 +49,7 @@ public class ViewTips extends Fragment {
         tanggal = (TextView) view.findViewById(R.id.tvTanggal);
         judul = (TextView) view.findViewById(R.id.tvJudulTips);
         deskripsi = (TextView) view.findViewById(R.id.tvDescription);
+        image = (ImageView) view.findViewById(R.id.imgTips);
 
         nav_back = (ImageButton) view.findViewById(R.id.ic_back_view_tips);
     }
@@ -58,6 +62,7 @@ public class ViewTips extends Fragment {
         tanggal.setText(data.getString("waktu"));
         judul.setText(data.getString("judul"));
         deskripsi.setText(data.getString("deskripsi"));
+        Glide.with(getActivity().getApplicationContext()).load(data.get("gambar")).into(image);
     }
 
     private boolean loadFragment(Fragment fragment) {
