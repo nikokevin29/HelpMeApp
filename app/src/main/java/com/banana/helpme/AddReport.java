@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -37,6 +38,7 @@ import com.banana.helpme.UserData.ReportDAO;
 import com.banana.helpme.UserData.UserDAO;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
@@ -74,8 +76,12 @@ public class AddReport extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    private StorageReference mStorageRef;
 
+    // Create a storage reference from our app
+    StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+
+    // Create a reference to "photo-report"
+    StorageReference ReportRef = storageRef.child("photo-report/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +101,6 @@ public class AddReport extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        mStorageRef = FirebaseStorage.getInstance().getReference();
-
 
         NavBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,6 +245,7 @@ public class AddReport extends AppCompatActivity {
     public void createReport(){
         ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
         System.out.println(user.getEmail());
+        uploadImage();
         Call<List<UserDAO>> userDAOCall = apiService.getAllUser();
         userDAOCall.enqueue(new Callback<List<UserDAO>>() {
             @Override
@@ -274,4 +279,36 @@ public class AddReport extends AppCompatActivity {
         });
 
     }
+
+    public void uploadImage(){
+        // Get the data from an ImageView as bytes
+        System.out.println("BANANA "+storageRef);
+        System.out.println("BANANA "+ReportRef);
+        camera.setDrawingCacheEnabled(true);
+        camera.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) camera.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        final StorageReference PhotoRef = ReportRef.child("img"+getSysDate());
+        final UploadTask uploadTask = PhotoRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+                Uri url = PhotoRef.getDownloadUrl().getResult();
+                System.out.println("PISANG URL "+url);
+
+            }
+        });
+    }
+
 }

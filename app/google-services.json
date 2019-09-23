@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "335185507635-je2qmub0m34q3pi309qfpean46tgfdto.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.banana.helpme",
+            "certificate_hash": "38df726207bc15cc4861e3f859f44b6d4d328d98"
+          }
+        },
+        {
           "client_id": "335185507635-7ipuht3kfohvah70qm2o1er8jtnltr4a.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
