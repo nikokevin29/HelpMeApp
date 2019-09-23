@@ -222,7 +222,7 @@ public class Register extends AppCompatActivity {
                 selectedGender);
 
             ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
-            Call<String> userDAOCALL = apiService.addUser(etName.getText().toString(),
+            Call<UserDAO> userDAOCALL = apiService.addUser(etName.getText().toString(),
                     etPhone.getText().toString(),
                     etEmail.getText().toString(),
                     etUsername.getText().toString(),
@@ -230,18 +230,18 @@ public class Register extends AppCompatActivity {
                     selectedGender);
         System.out.println("passing USERDAOCALL addUser");
 
-            userDAOCALL.enqueue(new Callback<String>() {
+            userDAOCALL.enqueue(new Callback<UserDAO>() {
                 @Override
-                public void onResponse(Call<String> call, Response<String> response) {
+                public void onResponse(Call<UserDAO> call, Response<UserDAO> response) {
                     System.out.println("success");
-                    Toast.makeText(Register.this, "Gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "Success creating account", Toast.LENGTH_SHORT).show();
 
                 }
                 // onrespone dan on Failure dibalik Toastnya
                 @Override
-                public void onFailure(Call<String> call, Throwable t) {
+                public void onFailure(Call<UserDAO> call, Throwable t) {
                     System.out.println("gagal");
-                    Toast.makeText(Register.this, "Success creating account", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "Gagal", Toast.LENGTH_SHORT).show();
                 }
             });
         }

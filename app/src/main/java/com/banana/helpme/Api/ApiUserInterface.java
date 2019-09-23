@@ -15,7 +15,7 @@ public interface ApiUserInterface {
 
     @POST("createProfile.php")
     @FormUrlEncoded
-    Call<String> addUser(@Field("name")String nama,
+    Call<UserDAO> addUser(@Field("name")String nama,
                           @Field("phone")String telepon,
                           @Field("email")String email,
                           @Field("username")String username,
@@ -43,7 +43,7 @@ public interface ApiUserInterface {
     // BUAT REPORT
     @FormUrlEncoded
     @POST("createReport.php")
-    Call<String> addReport(@Field("kategori")String kategori,
+    Call<ReportDAO> addReport(@Field("kategori")String kategori,
                          @Field("img")String img,
                          @Field("address")String alamat,
                          @Field("description")String description,
@@ -62,13 +62,13 @@ public interface ApiUserInterface {
 
     @POST("deleteReport.php")
     @FormUrlEncoded
-    Call<String> deleteReport(@Field("id") String id);
+    Call<Void> deleteReport(@Field("id") String id);
 
 
     // BUAT Tips
     @FormUrlEncoded
     @POST("createTips.php")
-    Call<String> addTips(@Field("title")String title,
+    Call<TipsDAO> addTips(@Field("title")String title,
                            @Field("description")String description,
                            @Field("img")String img,
                          @Field("username")String username,
@@ -85,6 +85,6 @@ public interface ApiUserInterface {
 
     @POST("deleteTips.php")
     @FormUrlEncoded
-    Call<String> deleteTips(@Field("id") String id);
+    Call<Void> deleteTips(@Field("id") String id);
 
 }

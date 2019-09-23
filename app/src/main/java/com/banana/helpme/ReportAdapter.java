@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.banana.helpme.Api.ApiClient;
 import com.banana.helpme.Api.ApiUserInterface;
 import com.banana.helpme.UserData.ReportDAO;
+import com.banana.helpme.UserData.TipsDAO;
 
 import java.util.List;
 
@@ -161,19 +162,19 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
 
     private void deleteReport(String id){
         ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
-        Call<String> reportDAOCall = apiService.deleteReport(id);
+        Call<Void> reportDAOCall = apiService.deleteReport(id);
 
-        reportDAOCall.enqueue(new Callback<String>() {
+        reportDAOCall.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                //reverse close
-                Toast.makeText(context, "Fail Deleteing report", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Success Deleting report", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
 
-                Toast.makeText(context, "Success Deleteing report", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Fail Deleting report", Toast.LENGTH_SHORT).show();
             }
         });
 

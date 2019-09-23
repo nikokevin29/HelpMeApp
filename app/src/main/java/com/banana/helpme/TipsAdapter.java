@@ -159,19 +159,19 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.MyViewHolder> 
     }
     private void deleteTips(String id){
         ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
-        Call<String> tipsDAOCall = apiService.deleteTips(id);
+        Call<Void> tipsDAOCall = apiService.deleteTips(id);
 
-        tipsDAOCall.enqueue(new Callback<String>() {
+        tipsDAOCall.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                //reverse close
-                Toast.makeText(context, "Fail Deleteing tips", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Toast.makeText(context, "Success Deleting tips", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
 
-                Toast.makeText(context, "Success Deleteing tips", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Fail Deleteing tips", Toast.LENGTH_SHORT).show();
+                System.out.println("PISANG "+t.getMessage());
             }
         });
 

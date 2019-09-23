@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.banana.helpme.Api.ApiClient;
 import com.banana.helpme.Api.ApiUserInterface;
+import com.banana.helpme.UserData.TipsDAO;
 import com.banana.helpme.UserData.UserDAO;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -95,17 +96,17 @@ public class AddTips extends AppCompatActivity {
                             if(response.body().get(i).getEmail().equals(user.getEmail())){
                                 username = response.body().get(i).getUsername();
                                 ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
-                                Call<String> tipsDAOcall = apiService.addTips(title.getText().toString(),
+                                Call<TipsDAO> tipsDAOcall = apiService.addTips(title.getText().toString(),
                                         description.getText().toString(), stringImg, username, getSysDate());
-                                tipsDAOcall.enqueue(new Callback<String>() {
+                                tipsDAOcall.enqueue(new Callback<TipsDAO>() {
                                     @Override
-                                    public void onResponse(Call<String> call, Response<String> response) {
+                                    public void onResponse(Call<TipsDAO> call, Response<TipsDAO> response) {
                                         Toast.makeText(AddTips.this, "success", Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
-                                    public void onFailure(Call<String> call, Throwable t) {
-                                        Toast.makeText(AddTips.this, "success", Toast.LENGTH_SHORT).show();
+                                    public void onFailure(Call<TipsDAO> call, Throwable t) {
+                                        Toast.makeText(AddTips.this, "failed", Toast.LENGTH_SHORT).show();
                                         Intent share = new Intent(AddTips.this, MainActivity.class);
                                         startActivity(share);
                                     }

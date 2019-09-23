@@ -1,5 +1,6 @@
 package com.banana.helpme;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,10 +35,16 @@ import com.banana.helpme.Api.ApiClient;
 import com.banana.helpme.Api.ApiUserInterface;
 import com.banana.helpme.UserData.ReportDAO;
 import com.banana.helpme.UserData.UserDAO;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -67,6 +74,8 @@ public class AddReport extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+    private StorageReference mStorageRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +95,8 @@ public class AddReport extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+
 
         NavBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +148,30 @@ public class AddReport extends AppCompatActivity {
         });
     }
 
+//    public void uploadimage()
+//    {
+//        Uri file = Uri.fromFile(new File("path/to/photo-report/rep1.jpg"));
+//        StorageReference rape = mStorageRef.child("photo-report/rep1.jpg");
+//
+//        rape.putFile(file)
+//                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                    @Override
+//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                        // Get a URL to the uploaded content
+//
+//                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+//
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception exception) {
+//                        // Handle unsuccessful uploads
+//                        Toast.makeText(AddReport.this, "Upload Photo Failed", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -180,7 +215,6 @@ public class AddReport extends AppCompatActivity {
         //getAddress(latitude,longitude);
         alamat = getAddress(AddReport.this,latitude,longitude);
         tvLocation.setText(alamat);
-        //Toast.makeText(AddReport.this,"alamat"+alamat,Toast.LENGTH_LONG).show(); //tampilin toast
     }
     private String getAddress(Context c, double latitude, double longitude) {
         String alamat =null;
@@ -217,17 +251,17 @@ public class AddReport extends AppCompatActivity {
                         System.out.println(username);
                         String kategori = category.getSelectedItem().toString();
                         ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
-                        Call<String> reportDAOCall = apiService.addReport(kategori, photoData, alamat,
+                        Call<ReportDAO> reportDAOCall = apiService.addReport(kategori, photoData, alamat,
                                 description.getText().toString(), username, getSysDate());
-                        reportDAOCall.enqueue(new Callback<String>() {
+                        reportDAOCall.enqueue(new Callback<ReportDAO>() {
                             @Override
-                            public void onResponse(Call<String> call, Response<String> response) {
+                            public void onResponse(Call<ReportDAO> call, Response<ReportDAO> response) {
                                 Toast.makeText(AddReport.this, "Add Report Success", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
-                            public void onFailure(Call<String> call, Throwable t) {
-                                Toast.makeText(AddReport.this, "Add Report Success", Toast.LENGTH_SHORT).show();
+                            public void onFailure(Call<ReportDAO> call, Throwable t) {
+                                Toast.makeText(AddReport.this, "Add Report Failed", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
