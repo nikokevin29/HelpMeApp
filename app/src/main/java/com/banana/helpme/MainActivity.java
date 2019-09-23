@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // kita set default nya Home Fragment
-        checkPermission();
+        checkPermissionLocation();
+        checkPermissionCamera();
         loadFragment(new HomeFragment());
 
         if (getIntent().getStringExtra("from")!=null){
@@ -69,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void checkPermission()
+
+    public void checkPermissionCamera()
     {
         // ini main activity
         if (ContextCompat.checkSelfPermission(MainActivity.this,
@@ -89,15 +91,22 @@ public class MainActivity extends AppCompatActivity {
                 // No explanation needed; request the permission
                 ActivityCompat.requestPermissions(MainActivity.this,
                         new String[]{Manifest.permission.CAMERA},1);
-
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
                 // result of the request.
             }
-        }if((ContextCompat.checkSelfPermission(MainActivity.this,
+        }
+    }
+    public void checkPermissionLocation()
+    {
+        // ini main activity
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED)) {
+                != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(this,"Permission Location not granted",Toast.LENGTH_SHORT).show();
+
+            // permission belum diaktifkan
+            // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
                 onRequestPermissionsResult(2);
@@ -108,13 +117,11 @@ public class MainActivity extends AppCompatActivity {
                 // No explanation needed; request the permission
                 ActivityCompat.requestPermissions(MainActivity.this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},2);
-
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
                 // result of the request.
             }
         }
-
     }
 
     public void onRequestPermissionsResult(int requestCode) {
