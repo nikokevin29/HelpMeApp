@@ -28,9 +28,9 @@ public interface ApiUserInterface {
     @GET("viewProfile.php")
     Call<List<UserDAO>> getAllUser();
 
-    @POST("updateProfile.php/{email}")
+    @POST("updateProfile.php")
     @FormUrlEncoded
-    Call<String> editUser(@Path("email") String email,
+    Call<UserDAO> editUser(@Field("email") String email,
                           @Field("name")String nama,
                           @Field("phone")String telepon,
                           @Field("username")String username,
@@ -55,7 +55,7 @@ public interface ApiUserInterface {
 
     @POST("updateReport.php")
     @FormUrlEncoded
-    Call<String> editReport(@Field("id") String id,
+    Call<ReportDAO> editReport(@Field("id") String id,
                             @Field("kategori")String kategori,
                             @Field("img")String img,
                             @Field("description")String description);
@@ -79,12 +79,9 @@ public interface ApiUserInterface {
 
     @POST("updateTips.php")
     @FormUrlEncoded
-    Call<String> editTips(@Field("id") String id,
+    Call<TipsDAO> editTips(@Field("id") String id,
                           @Field("title")String title,
-                          @Field("description")String description,
-                          @Field("img")String img,
-                          @Field("username")String username,
-                          @Field("datetime")String datetime);
+                          @Field("description")String description);
 
     @POST("deleteTips.php")
     @FormUrlEncoded

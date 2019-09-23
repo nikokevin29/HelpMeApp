@@ -42,7 +42,6 @@ public class EditAccount extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    String mUsername;
     UserDAO userDAO;
     String TAG = "EditAccount";
     @Override
@@ -63,6 +62,8 @@ public class EditAccount extends AppCompatActivity {
         password = findViewById(R.id.etPassword);
         birth = findViewById(R.id.etBirth);
         spinnerGender = findViewById(R.id.spinnerGender);
+
+        email.setEnabled(false);
         setField();
 
         NavBack.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +78,7 @@ public class EditAccount extends AppCompatActivity {
         Confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 updateProfile();
                 Intent con = new Intent(EditAccount.this, MainActivity.class);
                 con.putExtra("from", "account");
@@ -163,18 +165,26 @@ public class EditAccount extends AppCompatActivity {
     private void updateProfile(){
         ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
         System.out.println(user.getEmail());
-        Call<String> userDAOCall = apiService.editUser(email.getText().toString(), nama.getText().toString(),
+        Call<UserDAO> userDAOCall = apiService.editUser(email.getText().toString(), nama.getText().toString(),
                 phone.getText().toString(), username.getText().toString(), birth.getText().toString(), spinnerGender.getSelectedItem().toString());
-        userDAOCall.enqueue(new Callback<String>() {
+        userDAOCall.enqueue(new Callback<UserDAO>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<UserDAO> call, Response<UserDAO> response) {
                 Toast.makeText(EditAccount.this, "Success", Toast.LENGTH_SHORT).show();
+                startIntent();
+
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<UserDAO> call, Throwable t) {
                 Toast.makeText(EditAccount.this, "Gagal", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void startIntent(){
+        Intent acc = new Intent(EditAccount.this, MainActivity.class);
+        acc.putExtra("from", "account");
+        startActivity(acc);
     }
 }

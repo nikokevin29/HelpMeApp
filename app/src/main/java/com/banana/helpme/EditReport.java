@@ -25,7 +25,6 @@ import retrofit2.Response;
 
 public class EditReport extends AppCompatActivity {
 
-    private LinearLayout camera;
     private Button confirm;
     private ImageButton nav_back;
     Spinner  category;
@@ -35,7 +34,6 @@ public class EditReport extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_report);
-        camera = (LinearLayout) findViewById(R.id.btnCamera);
         confirm = (Button) findViewById(R.id.btnConfirmEditReport);
         category = (Spinner) findViewById(R.id.spinnerCategory);
         description = (EditText) findViewById(R.id.etDescription);
@@ -54,25 +52,19 @@ public class EditReport extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
-                Call<String> reportDAOCall = apiService.editReport(getIntent().getStringExtra("id"),
+                Call<ReportDAO> reportDAOCall = apiService.editReport(getIntent().getStringExtra("id"),
                         category.getSelectedItem().toString(), "example image",
                         description.getText().toString());
-
-                System.out.println(getIntent().getStringExtra("id")+" "+
-                        category.getSelectedItem().toString()+" example image "+" "+
-                        description.getText().toString());
-                reportDAOCall.enqueue(new Callback<String>() {
+                reportDAOCall.enqueue(new Callback<ReportDAO>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        System.out.println(call+" "+response);
+                    public void onResponse(Call<ReportDAO> call, Response<ReportDAO> response) {
                         Toast.makeText(EditReport.this, "Edit Success", Toast.LENGTH_SHORT).show();
+                        startIntent();
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        System.out.println(call+" "+t.getMessage());
+                    public void onFailure(Call<ReportDAO> call, Throwable t) {
                         Toast.makeText(EditReport.this, "Edit Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -95,6 +87,11 @@ public class EditReport extends AppCompatActivity {
             }
         }
         return index;
+    }
+
+    public void startIntent(){
+        Intent acc = new Intent(EditReport.this, MainActivity.class);
+        startActivity(acc);
     }
 
 

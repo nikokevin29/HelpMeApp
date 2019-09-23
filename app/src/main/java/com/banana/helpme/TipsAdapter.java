@@ -151,6 +151,7 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.MyViewHolder> 
     }
     private void startIntent(TipsDAO hasil){
         Intent edit = new Intent(context, EditTips.class);
+        edit.putExtra("id",hasil.getId());
         edit.putExtra("title", hasil.getTitle());
         edit.putExtra("description", hasil.getDescription());
         edit.putExtra("img", hasil.getImg());

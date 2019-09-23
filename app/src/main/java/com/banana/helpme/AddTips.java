@@ -85,23 +85,41 @@ public class AddTips extends AppCompatActivity {
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getUsername();
                 ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
-                Call<String> tipsDAOcall = apiService.addTips(title.getText().toString(),
-                        description.getText().toString(), stringImg, username, getSysDate());
-                tipsDAOcall.enqueue(new Callback<String>() {
+                System.out.println(user.getEmail());
+                Call<List<UserDAO>> userDAOCall = apiService.getAllUser();
+                userDAOCall.enqueue(new Callback<List<UserDAO>>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        Toast.makeText(AddTips.this, "success", Toast.LENGTH_SHORT).show();
+                    public void onResponse(Call<List<UserDAO>> call, Response<List<UserDAO>> response) {
+                        for (int i=0; i<response.body().size(); i++){
+                            if(response.body().get(i).getEmail().equals(user.getEmail())){
+                                username = response.body().get(i).getUsername();
+                                ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
+                                Call<String> tipsDAOcall = apiService.addTips(title.getText().toString(),
+                                        description.getText().toString(), stringImg, username, getSysDate());
+                                tipsDAOcall.enqueue(new Callback<String>() {
+                                    @Override
+                                    public void onResponse(Call<String> call, Response<String> response) {
+                                        Toast.makeText(AddTips.this, "success", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<String> call, Throwable t) {
+                                        Toast.makeText(AddTips.this, "success", Toast.LENGTH_SHORT).show();
+                                        Intent share = new Intent(AddTips.this, MainActivity.class);
+                                        startActivity(share);
+                                    }
+                                });
+                            }
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        Toast.makeText(AddTips.this, "successess", Toast.LENGTH_SHORT).show();
-                        Intent share = new Intent(AddTips.this, MainActivity.class);
-                        startActivity(share);
+                    public void onFailure(Call<List<UserDAO>> call, Throwable t) {
+                        System.out.println("gagal");
                     }
                 });
+
             }
         });
     }
@@ -135,25 +153,4 @@ public class AddTips extends AppCompatActivity {
         return dateFormat.format(date);
     }
 
-    private void getUsername(){
-        ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
-        System.out.println(user.getEmail());
-        Call<List<UserDAO>> userDAOCall = apiService.getAllUser();
-        userDAOCall.enqueue(new Callback<List<UserDAO>>() {
-            @Override
-            public void onResponse(Call<List<UserDAO>> call, Response<List<UserDAO>> response) {
-                for (int i=0; i<response.body().size(); i++){
-                    if(response.body().get(i).getEmail().equals(user.getEmail())){
-                        username = response.body().get(i).getUsername();
-                        System.out.println(username);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<UserDAO>> call, Throwable t) {
-                System.out.println("gagal");
-            }
-        });
-    }
 }

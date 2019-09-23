@@ -63,7 +63,7 @@ public class AddReport extends AppCompatActivity {
 
     private String photoData;
     final int cameraCode = 99;
-    String alamat, username;
+    private String alamat, username;
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -113,7 +113,6 @@ public class AddReport extends AppCompatActivity {
         }
         final Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
 
-        onLocationChanged(location);
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,7 +203,8 @@ public class AddReport extends AppCompatActivity {
         return dateFormat.format(date);
     }
 
-    private void getUsername(){
+
+    public void createReport(){
         ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
         System.out.println(user.getEmail());
         Call<List<UserDAO>> userDAOCall = apiService.getAllUser();
@@ -215,6 +215,21 @@ public class AddReport extends AppCompatActivity {
                     if(response.body().get(i).getEmail().equals(user.getEmail())){
                         username = response.body().get(i).getUsername();
                         System.out.println(username);
+                        String kategori = category.getSelectedItem().toString();
+                        ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
+                        Call<String> reportDAOCall = apiService.addReport(kategori, photoData, alamat,
+                                description.getText().toString(), username, getSysDate());
+                        reportDAOCall.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                Toast.makeText(AddReport.this, "Add Report Success", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                Toast.makeText(AddReport.this, "Add Report Success", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 }
             }
@@ -223,25 +238,6 @@ public class AddReport extends AppCompatActivity {
                 System.out.println("gagal");
             }
         });
-    }
 
-    private void createReport(){
-        String kategori = category.getSelectedItem().toString();
-        getUsername();
-        ApiUserInterface apiService = ApiClient.getClient().create(ApiUserInterface.class);
-        Call<String> reportDAOCall = apiService.addReport(kategori, photoData, alamat,
-                description.getText().toString(), username, getSysDate());
-        reportDAOCall.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Toast.makeText(AddReport.this, "Add Report Success", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(AddReport.this, "Add Report Success", Toast.LENGTH_SHORT).show();
-                System.out.println("PISANG"+t.getMessage());
-            }
-        });
     }
 }

@@ -16,13 +16,14 @@ public class TipsDAO {
     public String getTime() { return datetime;}
     public void setTime() { this.datetime = datetime;}
     public TipsDAO(){}
-    public TipsDAO(String title,String description,String img, String username, String datetime, String id)
+    public TipsDAO(String id, String title,String description,String img, String username, String datetime)
     {
+        this.id = id;
         this.title = title ;
         this.img = img;
         this.description = description;
         this.username = username;
         this.datetime = datetime;
-        this.id = id;
+
     }
 }
