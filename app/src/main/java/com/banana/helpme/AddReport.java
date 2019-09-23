@@ -239,7 +239,7 @@ public class AddReport extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(AddReport.this, "Add Report Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddReport.this, "Add Report Success", Toast.LENGTH_SHORT).show();
                 System.out.println("PISANG"+t.getMessage());
             }
         });

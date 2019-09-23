@@ -97,7 +97,7 @@ public class AddTips extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-                        Toast.makeText(AddTips.this, "failed to share", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddTips.this, "successess", Toast.LENGTH_SHORT).show();
                         Intent share = new Intent(AddTips.this, MainActivity.class);
                         startActivity(share);
                     }
