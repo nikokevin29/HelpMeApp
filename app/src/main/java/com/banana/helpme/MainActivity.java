@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // kita set default nya Home Fragment
+        // inisialisasi BottomNavigaionView
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bn_main);
+
         checkPermissionLocation();
         checkPermissionCamera();
         loadFragment(new HomeFragment());
@@ -35,15 +38,20 @@ public class MainActivity extends AppCompatActivity {
         if (getIntent().getStringExtra("from")!=null){
             if(getIntent().getStringExtra("from").equalsIgnoreCase("AddPost"))
             {
+
                 loadFragment(new AddFragment());
-            }else if(getIntent().getStringExtra("from").equalsIgnoreCase("account"))
+                bottomNavigationView.setSelectedItemId(R.id.add_menu);
+            }else if(getIntent().getStringExtra("from").equalsIgnoreCase("tips"))
+            {
+                loadFragment(new TipsFragment());
+                bottomNavigationView.setSelectedItemId(R.id.tips_menu);
+            } else if(getIntent().getStringExtra("from").equalsIgnoreCase("account"))
             {
                 loadFragment(new AccountFragment());
+                bottomNavigationView.setSelectedItemId(R.id.account_menu);
             }
         }
 
-        // inisialisasi BottomNavigaionView
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bn_main);
         // beri listener pada saat item/menu bottomnavigation terpilih
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

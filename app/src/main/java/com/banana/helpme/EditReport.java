@@ -2,10 +2,12 @@ package com.banana.helpme;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ public class EditReport extends AppCompatActivity {
 
     private LinearLayout camera;
     private Button confirm;
+    private ImageButton nav_back;
     Spinner  category;
     private EditText description;
 
@@ -36,8 +39,17 @@ public class EditReport extends AppCompatActivity {
         confirm = (Button) findViewById(R.id.btnConfirmEditReport);
         category = (Spinner) findViewById(R.id.spinnerCategory);
         description = (EditText) findViewById(R.id.etDescription);
+        nav_back = (ImageButton) findViewById(R.id.ic_nav_back_edit_report);
 
         setField();
+
+        nav_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent main = new Intent(EditReport.this, MainActivity.class);
+                startActivity(main);
+            }
+        });
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,11 +66,13 @@ public class EditReport extends AppCompatActivity {
                 reportDAOCall.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
+                        System.out.println(call+" "+response);
                         Toast.makeText(EditReport.this, "Edit Success", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
+                        System.out.println(call+" "+t.getMessage());
                         Toast.makeText(EditReport.this, "Edit Failed", Toast.LENGTH_SHORT).show();
                     }
                 });

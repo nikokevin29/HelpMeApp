@@ -64,7 +64,7 @@ public class TipsFragment extends Fragment {
                 System.out.println(response.body().get(0).getTitle());
                 ListTips.addAll(response.body());
                 tipsAdapter.notifyDataSetChanged();
-                Toast.makeText(getActivity(), "Welcome", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "Welcome", Toast.LENGTH_SHORT).show();
             }
 
             @Override
